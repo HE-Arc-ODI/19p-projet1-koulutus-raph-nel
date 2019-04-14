@@ -3,7 +3,12 @@ package ch.hearc.odi.koulutus.business;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.hibernate.annotations.Entity;
+import org.hibernate.annotations.Table;
 
+@Entity
+@Table(name="Participant")
+@xmlRootElement(name = "Category")
 public class Participant {
   private Integer id;
   private String firstName;
