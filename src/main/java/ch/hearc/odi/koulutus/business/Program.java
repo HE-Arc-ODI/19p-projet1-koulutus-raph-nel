@@ -1,6 +1,11 @@
 package ch.hearc.odi.koulutus.business;
 
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "Program")
@@ -11,7 +16,7 @@ public class Program {
   private String richDescritpion;
   private String field;
   private Integer price;
-  private List<Course> cources;
+  private List<Course> courses;
 
   public Program() {
   }
@@ -22,7 +27,7 @@ public class Program {
     this.richDescritpion = richDescritpion;
     this.field = field;
     this.price = price;
-    this.cources = cources;
+    this.courses = cources;
   }
 
   @Id
@@ -68,11 +73,11 @@ public class Program {
     this.price = price;
   }
 
-  public List<Course> getCources() {
-    return cources;
+  public List<Course> getCourses() {
+    return courses;
   }
 
-  public void setCources(List<Course> cources) {
-    this.cources = cources;
+  public void setCourses(List<Course> courses) {
+    this.courses = courses;
   }
 }
