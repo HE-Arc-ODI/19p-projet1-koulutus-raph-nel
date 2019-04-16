@@ -6,6 +6,9 @@ package ch.hearc.odi.koulutus.services;
 
 
 import ch.hearc.odi.koulutus.business.Pojo;
+import ch.hearc.odi.koulutus.business.Program;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -19,6 +22,21 @@ public class PersistenceService {
     //  an EntityManagerFactory is set up once for an application
     //  IMPORTANT: the name here matches the name of persistence-unit in persistence.xml
     entityManagerFactory = Persistence.createEntityManagerFactory("ch.hearc.odi.koulutus.jpa");
+  }
+
+  /**
+   * Return all existing marathon
+   *
+   * @return a list
+   */
+  public ArrayList<Program> getPrograms(){
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    List<Program> programs = entityManager.createNamedQuery("from Program", Program.class)
+        .getResultList();
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    return (ArrayList<Program>) programs;
   }
 
   @Override
