@@ -13,6 +13,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "Course")
 @XmlRootElement(name = "Course")
 public class Course implements Serializable {
+
   private Integer id;
   private Integer quarter;
   private Integer year;

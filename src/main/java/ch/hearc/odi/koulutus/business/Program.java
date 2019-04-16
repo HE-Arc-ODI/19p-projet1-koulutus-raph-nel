@@ -5,8 +5,9 @@ import java.util.List;
 @Entity
 @Table(name = "Program")
 public class Program {
+
   private Integer id;
-  private  String name;
+  private String name;
   private String richDescritpion;
   private String field;
   private Integer price;
