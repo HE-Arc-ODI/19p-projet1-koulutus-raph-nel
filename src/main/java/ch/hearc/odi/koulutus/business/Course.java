@@ -9,7 +9,6 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.GenericGenerator;
 
-
 @Entity
 @Table(name = "Course")
 @XmlRootElement(name = "Course")
@@ -36,7 +35,6 @@ public class Course implements Serializable {
   @Id
   @GeneratedValue(generator = "increment")
   @GenericGenerator(name = "increment", strategy = "increment")
-
   public Integer getId() {
     return id;
   }
