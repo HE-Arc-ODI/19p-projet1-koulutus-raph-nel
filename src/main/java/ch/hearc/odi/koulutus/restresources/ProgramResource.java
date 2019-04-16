@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 @Path("program")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-public class ProgramResources implements Serializable {
+public class ProgramResource implements Serializable {
 
   @Inject
   PersistenceService persistenceService;
