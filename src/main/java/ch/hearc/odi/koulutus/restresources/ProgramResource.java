@@ -34,9 +34,8 @@ public class ProgramResource implements Serializable {
       @FormParam("name") String courseName,
       @FormParam("richdescritpion") String richeDescritpion,
       @FormParam("field") String field,
-      @FormParam("price") Integer price,
-      @PathParam("courses") List<Course> courseList) {
+      @FormParam("price") Integer price) {
     return persistenceService
-        .createAndPersistProgram(courseName, richeDescritpion, field, price, courseList);
+        .createAndPersistProgram(courseName, richeDescritpion, field, price);
   }
   }

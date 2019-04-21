@@ -21,6 +21,13 @@ public class Program {
   public Program() {
   }
 
+  public Program(String name, String richDescritpion, String field, Integer price) {
+    this.name = name;
+    this.richDescritpion = richDescritpion;
+    this.field = field;
+    this.price = price;
+  }
+
   public Program(String name, String richDescritpion, String field, Integer price,
       List<Course> cources) {
     this.name = name;

@@ -17,17 +17,20 @@ import javax.persistence.Persistence;
 
 public class PersistenceService {
 
+
   private EntityManagerFactory entityManagerFactory;
 
 
   public PersistenceService() {
+
+
     //  an EntityManagerFactory is set up once for an application
     //  IMPORTANT: the name here matches the name of persistence-unit in persistence.xml
     entityManagerFactory = Persistence.createEntityManagerFactory("ch.hearc.odi.koulutus.jpa");
   }
 
   /**
-   * Return all existing marathon
+   * Return all existing program
    *
    * @return a list
    */
@@ -41,9 +44,9 @@ public class PersistenceService {
     return (ArrayList<Program>) programs;
   }
   /**
-   * Return marathon by ID
+   * Return Program by ID
    *
-   * @return a marathon
+   * @return a program
    */
   public Program getProgramById(Integer programId){
     EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -54,32 +57,45 @@ public class PersistenceService {
     return program;
   }
   /**
-   * Create a new Marathon and persist
+   * Create a new Program and persist
    *
-   * @return the marathon object created
+   * @return the program object created
    */
-  public Program createAndPersistProgram(String name, String richDescription, String field, Integer price, List<Course> cources){
+  public Program createAndPersistProgram(String name, String richDescription, String field, Integer price){
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
-    Program program = new Program(name,richDescription,field,price,cources);
+    Program program = new Program(name,richDescription,field,price);
     entityManager.persist(program);
     entityManager.getTransaction().commit();
     entityManager.close();
     return program;
   }
 
-  public void deleteProgram (Integer programId){
+  public void deleteProgram (Integer programId) throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = entityManager.find(Program.class, programId);
     if (program == null){
-      throw new ProgramException("Program with id "+programId+" not found");
+      throw new ProgramException("Program with id "  +programId+" not found");
     }
     entityManager.remove(program);
     entityManager.getTransaction().commit();
     entityManager.close();
   }
 
+  public void updateProgam(Integer progamId, String name, String richDescription, String field, Integer price)
+      throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = entityManager.find(Program.class, progamId);
+    if (program != null) {
+      entityManager.find(Program.class, progamId).setName(name);
+      entityManager.find(Program.class, progamId).setRichDescritpion(richDescription);
+      entityManager.find(Program.class, progamId).setField(field);
+      entityManager.find(Program.class, progamId).setPrice(price);
+    }else{
+      throw new ProgramException("Program with id "  +progamId+" not found");}
+    }
 
   @Override
   public void finalize() throws Throwable {
