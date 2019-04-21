@@ -8,6 +8,7 @@ package ch.hearc.odi.koulutus.services;
 import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Pojo;
 import ch.hearc.odi.koulutus.business.Program;
+import ch.hearc.odi.koulutus.exception.ProgramException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -71,6 +72,9 @@ public class PersistenceService {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = entityManager.find(Program.class, programId);
+    if (program == null){
+      throw new ProgramException("Program with id "+programId+" not found");
+    }
     entityManager.remove(program);
     entityManager.getTransaction().commit();
     entityManager.close();
