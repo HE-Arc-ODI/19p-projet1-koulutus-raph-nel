@@ -67,6 +67,15 @@ public class PersistenceService {
     return program;
   }
 
+  public void deleteProgram (Integer programId){
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = entityManager.find(Program.class, programId);
+    entityManager.remove(program);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+  }
+
 
   @Override
   public void finalize() throws Throwable {
