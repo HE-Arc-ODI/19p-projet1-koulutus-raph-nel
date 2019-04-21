@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -14,12 +15,13 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "Course")
 @XmlRootElement(name = "Course")
 public class Course implements Serializable {
-
+  @XmlElement(name = "param")
   private Integer id;
   private Integer quarter;
   private Date year;
   private Integer maxNumberOfParticipants;
   private String status;
+  @XmlElement(name = "entities")
   private List<Session> sessions;
 
   public Course() {
@@ -27,6 +29,16 @@ public class Course implements Serializable {
 
   public Course(Integer quarter, Date year, Integer maxNumberOfParticipants,
       String status, List<Session> sessions) {
+    this.quarter = quarter;
+    this.year = year;
+    this.maxNumberOfParticipants = maxNumberOfParticipants;
+    this.status = status;
+    this.sessions = sessions;
+  }
+
+  public Course(Integer id, Integer quarter, Date year, Integer maxNumberOfParticipants,
+      String status, List<Session> sessions) {
+    this.id = id;
     this.quarter = quarter;
     this.year = year;
     this.maxNumberOfParticipants = maxNumberOfParticipants;

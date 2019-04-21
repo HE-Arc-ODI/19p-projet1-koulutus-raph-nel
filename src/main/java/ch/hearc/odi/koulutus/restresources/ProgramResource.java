@@ -28,6 +28,15 @@ public class ProgramResource implements Serializable {
     return persistenceService.getPrograms();
   }
 
-
-
-}
+  @POST
+  @Consumes(MediaType.APPLICATION_JSON)
+  public Program programPost(
+      @FormParam("name") String courseName,
+      @FormParam("richdescritpion") String richeDescritpion,
+      @FormParam("field") String field,
+      @FormParam("price") Integer price,
+      @PathParam("courses") List<Course> courseList) {
+    return persistenceService
+        .createAndPersistProgram(courseName, richeDescritpion, field, price, courseList);
+  }
+  }
