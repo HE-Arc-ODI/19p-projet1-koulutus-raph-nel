@@ -5,6 +5,7 @@
 package ch.hearc.odi.koulutus.services;
 
 
+import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Pojo;
 import ch.hearc.odi.koulutus.business.Program;
 import java.util.ArrayList;
@@ -38,6 +39,34 @@ public class PersistenceService {
     entityManager.close();
     return (ArrayList<Program>) programs;
   }
+  /**
+   * Return marathon by ID
+   *
+   * @return a marathon
+   */
+  public Program getProgramById(Integer programId){
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();;
+    Program program = entityManager.find(Program.class, programId);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    return program;
+  }
+  /**
+   * Create a new Marathon and persist
+   *
+   * @return the marathon object created
+   */
+  public Program createAndPersistProgram(String name, String richDescription, String field, Integer price, List<Course> cources){
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = new Program(name,richDescription,field,price,cources);
+    entityManager.persist(program);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    return program;
+  }
+
 
   @Override
   public void finalize() throws Throwable {
