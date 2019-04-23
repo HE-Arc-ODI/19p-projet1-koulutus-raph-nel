@@ -1,58 +1,74 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
+
 package ch.hearc.odi.koulutus.business;
 
-import java.io.Serializable;
+import ch.hearc.odi.koulutus.exception.ParticipantException;
+import ch.hearc.odi.koulutus.exception.ProgramException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.ManyToAny;
-
 
 @Entity
-@Table(name = "Participant")
-@XmlRootElement(name = "Participant")
-public class Participant implements Serializable {
-
+@Table(
+    name = "Participant"
+)
+@XmlRootElement(
+    name = "Participant"
+)
+public class Participant {
   private Integer id;
   private String firstName;
-  private String LastName;
-  private Date birthdate;
+  private String lastName;
+  private String birthdate;
   private List<Course> courses;
 
   public Participant() {
-    courses = new ArrayList<>();
+    this.courses = new ArrayList();
   }
 
-  public Participant(String firstName, String lastName, Date birthdate) {
+  public Participant(String firstName, String lastName, String birthdate) {
     this();
     this.firstName = firstName;
-    this.LastName = lastName;
+    this.lastName = lastName;
     this.birthdate = birthdate;
   }
 
-  public Participant(Integer id, String firstName, String lastName, Date birthdate) {
+  public Participant(Integer id, String firstName, String lastName, String birthdate) {
+    this(firstName, lastName, birthdate);
     this.id = id;
-    this.firstName = firstName;
-    LastName = lastName;
-    this.birthdate = birthdate;
+  }
+
+  public void setCourses(List<Course> courses) {
+    this.courses = courses;
   }
 
   @Id
-  @GeneratedValue(generator = "increment")
-  @GenericGenerator(name = "increment", strategy = "increment")
+  @GeneratedValue(
+      generator = "increment"
+  )
+  @GenericGenerator(
+      name = "increment",
+      strategy = "increment"
+  )
+  public Integer getId() {
+    return this.id;
+  }
 
   public void setId(Integer id) {
     this.id = id;
   }
 
   public String getFirstName() {
-    return firstName;
+    return this.firstName;
   }
 
   public void setFirstName(String firstName) {
@@ -60,31 +76,59 @@ public class Participant implements Serializable {
   }
 
   public String getLastName() {
-    return LastName;
+    return this.lastName;
   }
 
   public void setLastName(String lastName) {
-    LastName = lastName;
+    this.lastName = lastName;
   }
 
-  public Date getBirthdate() {
-    return birthdate;
+  public String getBirthdate() {
+    return this.birthdate;
   }
 
-  public void setBirthdate(Date birthdate) {
+  public void setBirthdate(String birthdate) {
     this.birthdate = birthdate;
   }
 
-  public List<Course> getCourses() {
-    return courses;
+  public List<Course> courses() {
+    return this.courses;
   }
 
-  public void setCourses(List<Course> courses) {
-    this.courses = courses;
+  public void addCourses(Course course) throws ProgramException {
+    if (!this.courses.contains(course)) {
+      this.courses.add(course);
+    }
+
   }
 
- /* @ManyToAny(targetEntity = Course.class, fetch = FetchType.EAGER, mappedBy = "courses")
-  public List<Course> getCours(){return courses};
-*/
+  public Course getCourses(Integer id) throws ParticipantException {
+    Iterator var2 = this.courses.iterator();
+
+    Course course;
+    do {
+      if (!var2.hasNext()) {
+        throw new ParticipantException("Course not found: " + id);
+      }
+
+      course = (Course)var2.next();
+    } while((long)course.getId() != id.longValue());
+
+    return course;
+  }
+
+  public void removeFromCourse(Integer idCourse) throws ProgramException {
+    this.courses.remove(this.getIndex(idCourse));
+  }
+
+  public int getIndex(Integer id) throws ProgramException {
+    for(int i = 0; i < this.courses.size(); ++i) {
+      Course course = (Course)this.courses.get(i);
+      if ((long)course.getId() == id.longValue()) {
+        return i;
+      }
+    }
+
+    throw new ProgramException("Index not found");
+  }
 }
-
