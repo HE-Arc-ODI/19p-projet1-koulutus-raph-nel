@@ -41,11 +41,11 @@ public class ProgramResource implements Serializable {
   @Consumes(MediaType.APPLICATION_JSON)
   public Program programPost(
       @FormParam("name") String courseName,
-      @FormParam("richdescritpion") String richeDescritpion,
+      @FormParam("richDescription") String richDescription,
       @FormParam("field") String field,
       @FormParam("price") Integer price) {
     return persistenceService
-        .createAndPersistProgram(courseName, richeDescritpion, field, price);
+        .createAndPersistProgram(courseName, richDescription, field, price);
   }
 
   @DELETE
