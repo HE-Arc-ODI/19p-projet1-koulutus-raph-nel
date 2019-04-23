@@ -12,6 +12,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -26,13 +27,13 @@ public class ProgramResource implements Serializable {
   PersistenceService persistenceService;
 
   @GET
-  public List<Program> getPrograms(){
+  public List<Program> getPrograms() {
     return persistenceService.getPrograms();
   }
 
   @GET
   @Path("{programId}")
-  public Program getProgram(@PathParam("programId") Integer programId){
+  public Program getProgram(@PathParam("programId") Integer programId) {
     return persistenceService.getProgramById(programId);
   }
 
@@ -50,8 +51,19 @@ public class ProgramResource implements Serializable {
   @DELETE
   @Path("{programId}")
   @Consumes(MediaType.APPLICATION_JSON)
-  public void deleteProgram(@PathParam("programId") Integer programId)throws ProgramException {
+  public void deleteProgram(@PathParam("programId") Integer programId) throws ProgramException {
     persistenceService.deleteProgram(programId);
   }
 
+  @PUT
+  @Path("{programId}")
+  @Consumes(MediaType.APPLICATION_JSON)
+  public Program updateProgram(@PathParam("programId") Integer programId,
+      @FormParam("name") String programName,
+      @FormParam("richdescritpion") String richeDescritpion,
+      @FormParam("field") String field,
+      @FormParam("price") Integer price) throws ProgramException {
+    return persistenceService
+        .updateProgam(programId, programName, richeDescritpion, field, price);
   }
+}

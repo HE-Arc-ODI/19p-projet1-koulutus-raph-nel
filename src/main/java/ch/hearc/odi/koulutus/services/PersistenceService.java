@@ -83,7 +83,7 @@ public class PersistenceService {
     entityManager.close();
   }
 
-  public void updateProgam(Integer progamId, String name, String richDescription, String field, Integer price)
+  public Program updateProgam(Integer progamId, String name, String richDescription, String field, Integer price)
       throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
@@ -93,10 +93,11 @@ public class PersistenceService {
       entityManager.find(Program.class, progamId).setRichDescritpion(richDescription);
       entityManager.find(Program.class, progamId).setField(field);
       entityManager.find(Program.class, progamId).setPrice(price);
-    }else{
-      throw new ProgramException("Program with id "  +progamId+" not found");}
+      return entityManager.find(Program.class, progamId);
+    } else {
+      return null;
     }
-
+  }
   @Override
   public void finalize() throws Throwable {
     entityManagerFactory.close();
