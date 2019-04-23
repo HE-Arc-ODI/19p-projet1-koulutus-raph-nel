@@ -60,7 +60,7 @@ public class ProgramResource implements Serializable {
   @Consumes(MediaType.APPLICATION_JSON)
   public Program updateProgram(@PathParam("programId") Integer programId, Program newProgram,
       @FormParam("name") String programName,
-      @FormParam("richdescritpion") String richeDescritpion,
+      @FormParam("richDescription") String richDescription,
       @FormParam("field") String field,
       @FormParam("price") Integer price) throws ProgramException {
     return persistenceService.updateProgram(programId, newProgram);
