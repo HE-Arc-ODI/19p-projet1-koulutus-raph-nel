@@ -28,6 +28,12 @@ public class ProgramResource implements Serializable {
     return persistenceService.getPrograms();
   }
 
+  @GET
+  @Path("{programId}")
+  public Program getProgram(@PathParam("programId") Integer programId){
+    return persistenceService.getProgramById(programId);
+  }
+
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   public Program programPost(
