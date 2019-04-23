@@ -11,6 +11,7 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.GenericGenerator;
+import ch.hearc.odi.koulutus.exception.ProgramException;
 
 @Entity
 @Table(
@@ -123,6 +124,21 @@ public class Program implements Serializable {
     this.setName(newProgram.getName());
     this.setPrice(newProgram.getPrice());
     this.setRichDescription(newProgram.getRichDescription());
+  }
+
+  public Integer getIndex(Integer id) throws ProgramException {
+    for(int i = 0; i < this.courses.size(); ++i) {
+      /* Course c = (Course)this.courses.get(i);
+       if (c.getId() == id) {
+        return i;
+      } */
+    }
+
+    throw new ProgramException("Index not found");
+  }
+
+  public void removeCourse(Integer id) throws ProgramException {
+    this.courses.remove(this.getIndex(id));
   }
 }
 
