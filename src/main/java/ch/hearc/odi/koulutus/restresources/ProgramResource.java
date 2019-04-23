@@ -2,11 +2,13 @@ package ch.hearc.odi.koulutus.restresources;
 
 import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Program;
+import ch.hearc.odi.koulutus.exception.ProgramException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
 import java.io.Serializable;
 import java.util.List;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -44,4 +46,12 @@ public class ProgramResource implements Serializable {
     return persistenceService
         .createAndPersistProgram(courseName, richeDescritpion, field, price);
   }
+
+  @DELETE
+  @Path("{programId}")
+  @Consumes(MediaType.APPLICATION_JSON)
+  public void deleteProgram(@PathParam("programId") Integer programId)throws ProgramException {
+    persistenceService.deleteProgram(programId);
+  }
+
   }
