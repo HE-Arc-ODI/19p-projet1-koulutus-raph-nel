@@ -1,5 +1,5 @@
 package ch.hearc.odi.koulutus.restresources;
 
-public class CourseResources {
+public class ParticipantResource {
 
 }
