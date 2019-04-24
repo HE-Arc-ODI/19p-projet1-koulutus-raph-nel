@@ -1,71 +1,47 @@
 package ch.hearc.odi.koulutus.business;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.GenericGenerator;
-import ch.hearc.odi.koulutus.exception.ProgramException;
 
 @Entity
-@Table(
-    name = "Program"
-)
-@XmlRootElement(
-    name = "Program"
-)
-public class Program implements Serializable {
+@Table(name = "Program")
+public class Program {
+
   private Integer id;
   private String name;
-  private String richDescription;
+  private String richDescritpion;
   private String field;
   private Integer price;
   private List<Course> courses;
 
   public Program() {
-    this.courses = new ArrayList();
   }
 
-  public Program(String name, String richDescription, String field, Integer price) {
-    this();
+  public Program(String name, String richDescritpion, String field, Integer price) {
     this.name = name;
-    this.richDescription = richDescription;
+    this.richDescritpion = richDescritpion;
     this.field = field;
     this.price = price;
   }
 
-  public Program(Integer id, String name, String richDescription, String field, Integer price) {
-    this(name, richDescription, field, price);
-    this.id = id;
-  }
-
-  public Program(Program p, Course c) {
-    this.id = p.getId();
-    this.name = p.getName();
-    this.richDescription = p.getRichDescription();
-    this.field = p.getField();
-    this.price = p.getPrice();
-    this.courses = new ArrayList();
-    this.courses.add(c);
+  public Program(String name, String richDescritpion, String field, Integer price,
+      List<Course> cources) {
+    this.name = name;
+    this.richDescritpion = richDescritpion;
+    this.field = field;
+    this.price = price;
+    this.courses = cources;
   }
 
   @Id
-  @GeneratedValue(
-      generator = "increment"
-  )
-  @GenericGenerator(
-      name = "increment",
-      strategy = "increment"
-  )
-
+  @GeneratedValue(generator = "increment")
+  @GenericGenerator(name = "increment", strategy = "increment")
   public Integer getId() {
-    return this.id;
+    return id;
   }
 
   public void setId(Integer id) {
@@ -73,23 +49,23 @@ public class Program implements Serializable {
   }
 
   public String getName() {
-    return this.name;
+    return name;
   }
 
   public void setName(String name) {
     this.name = name;
   }
 
-  public String getRichDescription() {
-    return this.richDescription;
+  public String getRichDescritpion() {
+    return richDescritpion;
   }
 
-  public void setRichDescription(String richDescription) {
-    this.richDescription = richDescription;
+  public void setRichDescritpion(String richDescritpion) {
+    this.richDescritpion = richDescritpion;
   }
 
   public String getField() {
-    return this.field;
+    return field;
   }
 
   public void setField(String field) {
@@ -97,48 +73,18 @@ public class Program implements Serializable {
   }
 
   public Integer getPrice() {
-    return this.price;
+    return price;
   }
 
   public void setPrice(Integer price) {
     this.price = price;
   }
 
-  @XmlElement
-  @Transient
   public List<Course> getCourses() {
-    return this.courses;
+    return courses;
   }
 
   public void setCourses(List<Course> courses) {
     this.courses = courses;
   }
-
-  public void addCourse(Course course) {
-    this.courses.add(course);
-  }
-
-  public void update(Program newProgram) {
-    this.setCourses(newProgram.getCourses());
-    this.setField(newProgram.getField());
-    this.setName(newProgram.getName());
-    this.setPrice(newProgram.getPrice());
-    this.setRichDescription(newProgram.getRichDescription());
-  }
-
-  public Integer getIndex(Integer id) throws ProgramException {
-    for(int i = 0; i < this.courses.size(); ++i) {
-      /* Course c = (Course)this.courses.get(i);
-       if (c.getId() == id) {
-        return i;
-      } */
-    }
-
-    throw new ProgramException("Index not found");
-  }
-
-  public void removeCourse(Integer id) throws ProgramException {
-    this.courses.remove(this.getIndex(id));
-  }
 }
-

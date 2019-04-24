@@ -90,7 +90,7 @@ public class PersistenceService {
     Program program = entityManager.find(Program.class, progamId);
     if (program != null) {
       entityManager.find(Program.class, progamId).setName(name);
-      entityManager.find(Program.class, progamId).setRichDescription(richDescription);
+      entityManager.find(Program.class, progamId).setRichDescritpion(richDescription);
       entityManager.find(Program.class, progamId).setField(field);
       entityManager.find(Program.class, progamId).setPrice(price);
       return entityManager.find(Program.class, progamId);
