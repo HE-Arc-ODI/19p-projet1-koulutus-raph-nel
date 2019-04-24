@@ -8,9 +8,10 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table (name = "Session")
+@Table(name = "Session")
 public class Session {
-  private Long  id;
+
+  private Long id;
   private Date startDateTime;
   private Date endDateTime;
   private Double price;
@@ -26,47 +27,48 @@ public class Session {
     this.price = price;
     this.room = room;
   }
-     @Id
-     @GeneratedValue(generator = "increment")
-     @GenericGenerator(name = "increment", strategy = "increment")
-    public Long getId() {
-      return id;
-    }
 
-    public void setId(Long id) {
-      this.id = id;
-    }
+  @Id
+  @GeneratedValue(generator = "increment")
+  @GenericGenerator(name = "increment", strategy = "increment")
+  public Long getId() {
+    return id;
+  }
 
-    public Date getStartDateTime() {
-      return startDateTime;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public void setStartDateTime(Date startDateTime) {
-      this.startDateTime = startDateTime;
-    }
+  public Date getStartDateTime() {
+    return startDateTime;
+  }
 
-    public Date getEndDateTime() {
-      return endDateTime;
-    }
+  public void setStartDateTime(Date startDateTime) {
+    this.startDateTime = startDateTime;
+  }
 
-    public void setEndDateTime(Date endDateTime) {
-      this.endDateTime = endDateTime;
-    }
+  public Date getEndDateTime() {
+    return endDateTime;
+  }
 
-    public Double getPrice() {
-      return price;
-    }
+  public void setEndDateTime(Date endDateTime) {
+    this.endDateTime = endDateTime;
+  }
 
-    public void setPrice(Double price) {
-      this.price = price;
-    }
+  public Double getPrice() {
+    return price;
+  }
 
-    public String getRoom() {
-      return room;
-    }
+  public void setPrice(Double price) {
+    this.price = price;
+  }
 
-    public void setRoom(String room) {
-      this.room = room;
-    }
+  public String getRoom() {
+    return room;
+  }
+
+  public void setRoom(String room) {
+    this.room = room;
+  }
   }
 

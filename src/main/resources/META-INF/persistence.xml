@@ -19,6 +19,7 @@
     </description>
 
     <class>ch.hearc.odi.koulutus.business.Pojo</class>
+    <class>ch.hearc.odi.koulutus.business.Program</class>
 
     <properties>
       <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
