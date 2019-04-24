@@ -11,17 +11,21 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "Session")
 public class Session {
 
+
   private Long id;
   private Date startDateTime;
   private Date endDateTime;
   private Double price;
+
   private String room;
 
   public Session() {
   }
 
+
   public Session(Long id, Date startDateTime, Date endDateTime, Double price, String room) {
     this.id = id;
+
     this.startDateTime = startDateTime;
     this.endDateTime = endDateTime;
     this.price = price;
@@ -31,6 +35,7 @@ public class Session {
   @Id
   @GeneratedValue(generator = "increment")
   @GenericGenerator(name = "increment", strategy = "increment")
+
   public Long getId() {
     return id;
   }
@@ -71,4 +76,5 @@ public class Session {
     this.room = room;
   }
   }
+
 

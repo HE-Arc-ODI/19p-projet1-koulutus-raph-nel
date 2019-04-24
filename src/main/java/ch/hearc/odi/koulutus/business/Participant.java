@@ -1,5 +1,7 @@
 package ch.hearc.odi.koulutus.business;
 
+
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
@@ -20,6 +23,7 @@ public class Participant {
   private Long id;
   private String firstName;
   private String lastName;
+
   private Date birthdate;
   private List<Course> courses;
 
@@ -32,17 +36,20 @@ public class Participant {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
+
     this.birthdate = birthdate;
   }
 
   @Id
   @GeneratedValue(generator = "increment")
   @GenericGenerator(name = "increment", strategy = "increment")
+
   public Long getId() {
     return id;
   }
 
   public void setId(Long id) {
+
     this.id = id;
   }
 
@@ -55,11 +62,13 @@ public class Participant {
   }
 
   public String getLastName() {
+
     return lastName;
   }
 
   public void setLastName(String lastName) {
     this.lastName = lastName;
+
   }
 
   public Date getBirthdate() {
@@ -70,9 +79,11 @@ public class Participant {
     this.birthdate = birthdate;
   }
 
+
   @OneToMany(targetEntity = Course.class, fetch = FetchType.EAGER)
   @JoinColumn(name = "courses")
   @OrderColumn(name = "order_courses")
+
   public List<Course> getCourses() {
     return courses;
   }
@@ -81,4 +92,6 @@ public class Participant {
     this.courses = courses;
   }
 
+
 }
+

@@ -1,5 +1,6 @@
 package ch.hearc.odi.koulutus.business;
 
+
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +12,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "Course")
+
 public class Course{
 
   public enum QuarterEnum {
@@ -69,16 +72,20 @@ public class Course{
 
   public Course(Long id, QuarterEnum quarter, Integer year, Integer maxNumberOfParticipants, StatusEnum status) {
     this();
+
     this.id = id;
     this.quarter = quarter;
     this.year = year;
     this.maxNumberOfParticipants = maxNumberOfParticipants;
     this.status = status;
+
+
   }
 
   @Id
   @GeneratedValue(generator = "increment")
   @GenericGenerator(name = "increment", strategy = "increment")
+
   public Long getId() {
     return id;
   }
@@ -100,6 +107,7 @@ public class Course{
   }
 
   public void setYear(Integer year) {
+    
     this.year = year;
   }
 
@@ -110,6 +118,7 @@ public class Course{
   public void setMaxNumberOfParticipants(Integer maxNumberOfParticipants) {
     this.maxNumberOfParticipants = maxNumberOfParticipants;
   }
+
 
   public StatusEnum getStatus() {
     return status;
@@ -122,6 +131,7 @@ public class Course{
   @OneToMany(targetEntity = Session.class, fetch = FetchType.EAGER)
   @JoinColumn(name = "sessions")
   @OrderColumn(name = "order_sessions")
+
   public List<Session> getSessions() {
     return sessions;
   }
@@ -130,4 +140,5 @@ public class Course{
     this.sessions = sessions;
   }
 }
+
 
