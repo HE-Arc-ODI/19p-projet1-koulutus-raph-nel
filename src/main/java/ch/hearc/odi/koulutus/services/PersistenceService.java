@@ -26,6 +26,7 @@ public class PersistenceService {
     //  IMPORTANT: the name here matches the name of persistence-unit in persistence.xml
     entityManagerFactory = Persistence.createEntityManagerFactory("ch.hearc.odi.koulutus.jpa");
   }
+
   /**
    * Return all existing programs
    *
@@ -42,12 +43,13 @@ public class PersistenceService {
 
     return (ArrayList<Program>) programs;
   }
+
   /**
    * Return program by ID
    *
    * @return a program
    */
-  public Program getProgrambyId(Long programId){
+  public Program getProgrambyId(Long programId) {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = entityManager.find(Program.class, programId);
@@ -62,10 +64,11 @@ public class PersistenceService {
    *
    * @return the Program object created
    */
-  public Program createAndPersistProgram(String name, String richDescription, String field, BigDecimal price) {
+  public Program createAndPersistProgram(String name, String richDescription, String field,
+      BigDecimal price) {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
-    Program program = new Program(name,richDescription,field,price);
+    Program program = new Program(name, richDescription, field, price);
     entityManager.persist(program);
     entityManager.getTransaction().commit();
     entityManager.close();
@@ -77,7 +80,8 @@ public class PersistenceService {
    *
    * @return the Participant object created
    */
-  public Participant createAndPersistParticipant(Long id, String firstName, String lastName, Date birthdate) {
+  public Participant createAndPersistParticipant(Long id, String firstName, String lastName,
+      Date birthdate) {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Participant participant = new Participant(id, firstName, lastName, birthdate);
@@ -92,7 +96,7 @@ public class PersistenceService {
    *
    * @return void
    */
-  public void deleteProgram(Long programId){
+  public void deleteProgram(Long programId) {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = entityManager.find(Program.class, programId);
@@ -106,7 +110,8 @@ public class PersistenceService {
    * @param name, richDescription, field, price
    * @return the program updated
    */
-  public Program updateProgram(Long programId, String name, String richDescription, String field, BigDecimal price){
+  public Program updateProgram(Long programId, String name, String richDescription, String field,
+      BigDecimal price) {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = entityManager.find(Program.class, programId);
@@ -124,7 +129,7 @@ public class PersistenceService {
     super.finalize();
   }
 
-  public Pojo createAndPersistAPojo(String myProperty){
+  public Pojo createAndPersistAPojo(String myProperty) {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Pojo pojo = new Pojo();
