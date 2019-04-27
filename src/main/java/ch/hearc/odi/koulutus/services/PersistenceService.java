@@ -99,6 +99,25 @@ public class PersistenceService {
     entityManager.remove(program);
   }
 
+  /**
+   * Update a program
+   *
+   * @param programId specifies which program to update
+   * @param name, richDescription, field, price
+   * @return the program updated
+   */
+  public Program updateProgram(Long programId, String name, String richDescription, String field, BigDecimal price){
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = entityManager.find(Program.class, programId);
+    program.setName(name);
+    program.setRichDescription(richDescription);
+    program.setField(field);
+    program.setPrice(price);
+    entityManager.getTransaction().commit();
+    return program;
+  }
+
   @Override
   public void finalize() throws Throwable {
     entityManagerFactory.close();
