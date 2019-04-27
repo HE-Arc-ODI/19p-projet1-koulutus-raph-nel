@@ -5,6 +5,7 @@ import ch.hearc.odi.koulutus.services.PersistenceService;
 import java.util.List;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -31,7 +32,14 @@ public class ProgramResource {
   }
 
   @POST
-  public Program programPost(Program program ){
+  public Program postProgram(Program program ){
     return persistenceService.createAndPersistProgram(program.getName(),program.getRichDescription(),program.getField(),program.getPrice());
+  }
+
+  @DELETE
+  @Path("{programId}")
+  public void deletProgram(@PathParam("programId") long programId){
+    return persistenceService
+
   }
 }

@@ -56,6 +56,7 @@ public class PersistenceService {
     return program;
   }
 
+
   /**
    * Create a new Program and persist
    *
@@ -84,6 +85,18 @@ public class PersistenceService {
     entityManager.getTransaction().commit();
     entityManager.close();
     return participant;
+  }
+
+  /**
+   * Delete a program
+   *
+   * @return void
+   */
+  public void deleteProgram(Long programId){
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = entityManager.find(Program.class, programId);
+    entityManager.remove(program);
   }
 
   @Override
