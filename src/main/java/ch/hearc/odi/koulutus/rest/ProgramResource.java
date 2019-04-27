@@ -25,12 +25,9 @@ public class ProgramResource {
   }
 
   @GET
-  @Path("{programId")
-  public Program getProgram(@PathParam("programId") Long programId)
-    return
-
-  public PersistenceService getPersistenceService() {
-    return persistenceService
+  @Path("{programId}")
+  public Program getProgram(@PathParam("programId") Long programId){
+    return persistenceService.getProgrambyId(programId);
   }
 
   @POST
