@@ -18,34 +18,39 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class ProgramResource {
+
   @Inject
   private PersistenceService persistenceService;
 
   @GET
-  public List<Program> getPrograms(){
+  public List<Program> getPrograms() {
     return persistenceService.getPrograms();
   }
 
   @GET
   @Path("{programId}")
-  public Program getProgram(@PathParam("programId") Long programId){
+  public Program getProgram(@PathParam("programId") Long programId) {
     return persistenceService.getProgrambyId(programId);
   }
 
   @POST
-  public Program postProgram(Program program ){
-    return persistenceService.createAndPersistProgram(program.getName(),program.getRichDescription(),program.getField(),program.getPrice());
+  public Program postProgram(Program program) {
+    return persistenceService
+        .createAndPersistProgram(program.getName(), program.getRichDescription(),
+            program.getField(), program.getPrice());
   }
 
   @DELETE
   @Path("{programId}")
-  public void deletProgram(@PathParam("programId") long programId){
-     persistenceService.deleteProgram(programId);
+  public void deletProgram(@PathParam("programId") long programId) {
+    persistenceService.deleteProgram(programId);
   }
 
   @PUT
   @Path("{programId}")
-  public Program updateProgram(@PathParam("programId") Long programId, Program program){
-    return persistenceService.updateProgram(programId,program.getName(),program.getRichDescription(),program.getField(),program.getPrice());
+  public Program updateProgram(@PathParam("programId") Long programId, Program program) {
+    return persistenceService
+        .updateProgram(programId, program.getName(), program.getRichDescription(),
+            program.getField(), program.getPrice());
   }
 }
