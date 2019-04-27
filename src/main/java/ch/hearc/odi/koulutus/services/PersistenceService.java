@@ -42,6 +42,19 @@ public class PersistenceService {
 
     return (ArrayList<Program>) programs;
   }
+  /**
+   * Return program by ID
+   *
+   * @return a program
+   */
+  public Program getProgrambyId(Long programId){
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = entityManager.find(Program.class, programId);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    return program;
+  }
 
   /**
    * Create a new Program and persist
