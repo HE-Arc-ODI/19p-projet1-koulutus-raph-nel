@@ -39,7 +39,6 @@ public class ProgramResource {
   @DELETE
   @Path("{programId}")
   public void deletProgram(@PathParam("programId") long programId){
-    return persistenceService
-
+     persistenceService.deleteProgram(programId);
   }
 }
