@@ -43,5 +43,21 @@ public class ProgramTest {
     assertEquals(expected, actual.getId());
   }
 
+  @Test
+  public void testDeleteCourseById() {
+    // Arrange / Build
+    Long testId = 1L;
+    Long testSecondId = 2L;
+    Course input = new Course(testId);
+    Course input2 = new Course(testSecondId);
+    Long expected = testSecondId;
+    // Act / Operate
+    program.addCourse(input);
+    program.addCourse(input2);
+    program.deleteCourseById(testId);
+    Long actual = program.getCourses().get(0).getId();
+    // Assert / Check
+    assertEquals(expected, actual);
+  }
 
 }
