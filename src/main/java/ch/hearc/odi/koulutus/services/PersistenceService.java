@@ -22,7 +22,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-
 public class PersistenceService {
 
   private EntityManagerFactory entityManagerFactory;
@@ -108,13 +107,13 @@ public class PersistenceService {
     entityManager.getTransaction().begin();
     Program program = entityManager.find(Program.class, programId);
     entityManager.remove(program);
-    if (program == null){
-      LOGGER.warn("deleteProgram; Program with id "+programId+" not found");
-      throw new ProgramException("Program with id "+programId+" not found");
+    if (program == null) {
+      LOGGER.warn("deleteProgram; Program with id " + programId + " not found");
+      throw new ProgramException("Program with id " + programId + " not found");
     }
     entityManager.getTransaction().commit();
     entityManager.close();
-    LOGGER.info("deleteProgram; Program with id "+programId+" was deleted");
+    LOGGER.info("deleteProgram; Program with id " + programId + " was deleted");
   }
 
   /**
@@ -140,21 +139,20 @@ public class PersistenceService {
   /**
    * Return course by ID
    *
-   * @return a course
+   * @return List of Course
    */
-  private Course getCourseById(Long courseId) throws CourseException {
+  public List<Course> getCoursesByProgramId(Long programId) throws CourseException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
-    Course course = entityManager.find(Course.class, courseId);
-
-    if (course == null) {
-      LOGGER.warn("getCourseById; Course with id "+courseId+" not found");
-      throw new CourseException("Course with id "+courseId+" not found");
+    Program program = entityManager.find(Program.class, programId);
+    if (program == null) {
+      LOGGER.warn("getCoursesByProgramId; Program with id " + programId + " not found");
+      throw new CourseException("Program with id " + programId + " not found");
     }
     entityManager.getTransaction().commit();
     entityManager.close();
-    LOGGER.info("getCourseById; Course with id "+courseId+" was found");
-    return course;
+    LOGGER.info("getCoursesByProgramId; Program with " + programId + " was found");
+    return program.getCourses();
   }
 
   @Override
