@@ -8,6 +8,7 @@ import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Participant;
 import ch.hearc.odi.koulutus.business.Pojo;
 import ch.hearc.odi.koulutus.business.Program;
+import ch.hearc.odi.koulutus.exceptions.ParticipantException;
 import ch.hearc.odi.koulutus.exceptions.ProgramException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -283,8 +284,12 @@ public class PersistenceService {
 
     if (participant == null) {
       LOGGER.warn("getParticipantById; Participant with id " + participantId + " not found");
-      throw new ProgramException("Participant with id " + participantId+ " not found");
+      throw new ParticipantException("Participant with id " + participantId+ " not found");
     }
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    LOGGER.info("getParticipants; Participant with id " + participantId + " was called");
+    return participant;
   }
 
 
