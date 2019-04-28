@@ -30,5 +30,18 @@ public class ProgramTest {
     assertEquals(expected, actual.get(0).getId());
   }
 
+  @Test
+  public void testGetCourseById() {
+    // Arrange / Build
+    Long testId = 1L;
+    Course input = new Course(testId);
+    Long expected = testId;
+    // Act / Operate
+    program.addCourse(input);
+    Course actual = program.getCourseById(testId);
+    // Assert / Check
+    assertEquals(expected, actual.getId());
+  }
+
 
 }
