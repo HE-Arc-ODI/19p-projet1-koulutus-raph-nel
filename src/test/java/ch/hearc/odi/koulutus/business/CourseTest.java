@@ -11,6 +11,6 @@ public class CourseTest {
     private Course course;
 
     @Before
-    public void init() {course = new Course();}
+    public void init() {course = new Course(1, 1990, 10);}
 
   }

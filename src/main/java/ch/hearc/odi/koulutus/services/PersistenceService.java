@@ -7,6 +7,7 @@ package ch.hearc.odi.koulutus.services;
 
 import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Participant;
+import ch.hearc.odi.koulutus.business.Pojo;
 import ch.hearc.odi.koulutus.business.Program;
 import ch.hearc.odi.koulutus.business.Session;
 import ch.hearc.odi.koulutus.exception.ParticipantException;
@@ -180,6 +181,16 @@ public class PersistenceService {
     } else {
       throw new ProgramException("Course or participant not found");
     }
+  }
+
+  public Pojo createAndPersistAPojo(String Mess){
+    EntityManager entityManager = this.entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Pojo pojo = new Pojo(Mess);
+    entityManager.persist(pojo);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    return pojo;
   }
 
   public void finalize() throws Throwable {

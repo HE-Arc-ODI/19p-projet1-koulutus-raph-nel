@@ -41,6 +41,21 @@ public class Pojo implements Serializable {
     this.someProperty = someProperty;
   }
 
+  public Pojo(Long id, String someProperty)
+  {
+    this.id = id;
+    this.someProperty = someProperty;
+  }
+
+  public Pojo(String someProperty)
+  {
+    this.someProperty = someProperty;
+  }
+
+  public Pojo()
+  {}
+
+
   @Override
   public boolean equals(Object o) {
     if(this == o){
@@ -50,6 +65,7 @@ public class Pojo implements Serializable {
       return false;
     }
     Pojo pojo = (Pojo) o;
+
     return id == pojo.getId() &&
         someProperty.equals(pojo.getSomeProperty());
   }
