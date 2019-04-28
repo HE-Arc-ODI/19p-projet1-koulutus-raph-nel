@@ -16,6 +16,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -334,6 +335,7 @@ public class PersistenceService {
     LOGGER.info("updateParticipant; Participant with id " + participantId + " was updated");
     return participant;
   }
+
 
 
   @Override

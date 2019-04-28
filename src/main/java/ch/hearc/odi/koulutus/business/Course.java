@@ -63,7 +63,15 @@ public class Course {
     sessions = new ArrayList<>();
   }
 
-  public Course(Long id, QuarterEnum quarter, Integer year, Integer maxNumberOfParticipants,
+  public Course(Long id) {
+    this.id = id;
+  }
+
+  public Course(
+      Long id,
+      QuarterEnum quarter,
+      Integer year,
+      Integer maxNumberOfParticipants,
       StatusEnum status) {
     this();
     this.id = id;
@@ -127,4 +135,3 @@ public class Course {
     this.sessions = sessions;
   }
 }
-
