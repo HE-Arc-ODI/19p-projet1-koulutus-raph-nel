@@ -15,21 +15,19 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "Course")
-public class Course{
+public class Course {
 
   public enum QuarterEnum {
     NUMBER_1(1),
-
     NUMBER_2(2),
-
     NUMBER_3(3),
-
     NUMBER_4(4);
     private Integer value;
 
     QuarterEnum(Integer value) {
       this.value = value;
     }
+
     @Override
     @JsonValue
     public String toString() {
@@ -39,9 +37,7 @@ public class Course{
 
   public enum StatusEnum {
     OPEN("OPEN"),
-
     CONFIRMED("CONFIRMED"),
-
     CANCELLED("CANCELLED");
     private String value;
 
@@ -67,7 +63,8 @@ public class Course{
     sessions = new ArrayList<>();
   }
 
-  public Course(Long id, QuarterEnum quarter, Integer year, Integer maxNumberOfParticipants, StatusEnum status) {
+  public Course(Long id, QuarterEnum quarter, Integer year, Integer maxNumberOfParticipants,
+      StatusEnum status) {
     this();
     this.id = id;
     this.quarter = quarter;
