@@ -141,18 +141,33 @@ public class PersistenceService {
    *
    * @return List of Course
    */
-  public List<Course> getCoursesByProgramId(Long programId) throws CourseException {
+  public List<Course> getCoursesByProgramId(Long programId) throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = entityManager.find(Program.class, programId);
     if (program == null) {
       LOGGER.warn("getCoursesByProgramId; Program with id " + programId + " not found");
-      throw new CourseException("Program with id " + programId + " not found");
+      throw new ProgramException("Program with id " + programId + " not found");
     }
     entityManager.getTransaction().commit();
     entityManager.close();
     LOGGER.info("getCoursesByProgramId; Program with " + programId + " was found");
     return program.getCourses();
+  }
+
+  public void addCourseToProgram(Long programId,Course newCourse) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = entityManager.find(Program.class, programId);
+    if (program == null) {
+      LOGGER.warn("addCourseToProgram; Program with id " + programId + " not found");
+      throw new ProgramException("Program with id " + programId + " not found");
+    }else{
+      program.addCourse(newCourse);
+      entityManager.getTransaction().commit();
+      entityManager.close();
+      LOGGER.info("addCourseToProgram; Program with " + programId + "received a new course with id "+newCourse.getId()+" ");
+    }
   }
 
   @Override

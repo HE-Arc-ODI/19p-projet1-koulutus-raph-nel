@@ -103,4 +103,8 @@ public class Program {
     this.courses = courses;
   }
 
+  public void addCourse(Course newCourse){
+    this.courses.add(newCourse);
+  }
+
 }
