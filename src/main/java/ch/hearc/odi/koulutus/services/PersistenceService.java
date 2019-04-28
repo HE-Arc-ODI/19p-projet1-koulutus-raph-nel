@@ -192,12 +192,23 @@ public class PersistenceService {
     return course;
   }
 
-  public void deleteCourse(Long programId, Long courseId){
+  public void deleteCourse(Long programId, Long courseId) throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = entityManager.find(Program.class, programId);
+    Course course = program.getCourseById(programId);
+    if (program == null) {
+      LOGGER.warn("deleteCourse; Program with id " + programId + " not found");
+      throw new ProgramException("Program with id " + programId + " not found");
+    } else if (course == null) {
+      LOGGER.warn("deleteCourse; Course with id " + courseId + " not found");
+      throw new ProgramException("Course with id " + courseId + " not found");
+    }
+    program.deleteCourseById(course.getId());
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    LOGGER.info("deleteCourse; Course with " + courseId + " was deleted");
   }
-
 
   @Override
   public void finalize() throws Throwable {

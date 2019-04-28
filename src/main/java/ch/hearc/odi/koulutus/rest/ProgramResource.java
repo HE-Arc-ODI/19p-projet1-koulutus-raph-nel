@@ -80,7 +80,7 @@ public class ProgramResource {
   @DELETE
   @Path("{programId}/course/{courseId}")
   public void deleteCourse(@PathParam("programId") Long programId,
-      @PathParam("courseId") Long courseId{
-    persistenceService.d
+      @PathParam("courseId") Long courseId) throws ProgramException {
+    persistenceService.getCourseByIdProgramId(programId,courseId);
   }
 }
