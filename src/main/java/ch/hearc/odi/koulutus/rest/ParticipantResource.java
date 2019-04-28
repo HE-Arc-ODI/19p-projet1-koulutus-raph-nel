@@ -1,6 +1,7 @@
 package ch.hearc.odi.koulutus.rest;
 
 import ch.hearc.odi.koulutus.business.Participant;
+import ch.hearc.odi.koulutus.exceptions.ParticipantException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
 import java.util.List;
 import javax.inject.Inject;
@@ -31,7 +32,10 @@ public class ParticipantResource {
   }
   @GET
   @Path("{participantId}")
-  public Participant participantIdGet(@PathParam("participantId") Long participantid){
-    return persistenceService.;
+  public Participant getParticipantById(@PathParam("participantId") Long participantId)
+      throws ParticipantException {
+    return persistenceService.getParticipantById(participantId);
   }
+
+
 }
