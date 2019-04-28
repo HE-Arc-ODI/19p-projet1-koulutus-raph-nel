@@ -136,6 +136,32 @@ public class PersistenceService {
   }
 
   /**
+   * Update a course
+   *
+   * @param programId specifies which program to update
+   * @param courseId specifies which course to update
+   * @return the program updated
+   */
+  public Course updateCourse(
+      Long programId, Long courseId, Course updatedCourse) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = entityManager.find(Program.class, programId);
+    Course course = program.getCourseById(courseId);
+    if (program == null) {
+      LOGGER.warn("updateCourse; Program with id " + programId + " not found");
+      throw new ProgramException("Program with id " + programId + " not found");
+    } else if (course == null) {
+      LOGGER.warn("updateCourse; Course with id " + courseId + " not found");
+      throw new ProgramException("Course with id " + courseId + " not found");
+    }
+    program.deleteCourseById(course.getId());
+    program.addCourse(updatedCourse);
+    entityManager.getTransaction().commit();
+    return updatedCourse;
+  }
+
+  /**
    * Return course by ID
    *
    * @return List of Course
@@ -178,7 +204,7 @@ public class PersistenceService {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = entityManager.find(Program.class, programId);
-    Course course = program.getCourseById(programId);
+    Course course = program.getCourseById(courseId);
     if (program == null) {
       LOGGER.warn("getCourseByIdProgramId; Program with id " + programId + " not found");
       throw new ProgramException("Program with id " + programId + " not found");
@@ -196,7 +222,7 @@ public class PersistenceService {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = entityManager.find(Program.class, programId);
-    Course course = program.getCourseById(programId);
+    Course course = program.getCourseById(courseId);
     if (program == null) {
       LOGGER.warn("deleteCourse; Program with id " + programId + " not found");
       throw new ProgramException("Program with id " + programId + " not found");
@@ -209,6 +235,8 @@ public class PersistenceService {
     entityManager.close();
     LOGGER.info("deleteCourse; Course with " + courseId + " was deleted");
   }
+
+
 
   @Override
   public void finalize() throws Throwable {
