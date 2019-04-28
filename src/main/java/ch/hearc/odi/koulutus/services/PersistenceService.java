@@ -218,6 +218,25 @@ public class PersistenceService {
     return course;
   }
 
+ /* public Course getParticipantByprogramIdCourseId(Long programId, Long courseId) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = entityManager.find(Program.class, programId);
+    Course course = program.getCourseById(courseId);
+    if (program == null) {
+      LOGGER.warn("getCourseByIdProgramId; Program with id " + programId + " not found");
+      throw new ProgramException("Program with id " + programId + " not found");
+    } else if (course == null) {
+      LOGGER.warn("getCourseByIdProgramId; Course with id " + courseId + " not found");
+      throw new ProgramException("Course with id " + courseId + " not found");
+    }
+    Paticipant paticipant = course.get
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    LOGGER.info("getCourseByIdProgramId; Course with " + courseId + " was found");
+    return course;
+  }*/
+
   public void deleteCourse(Long programId, Long courseId) throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
@@ -236,6 +255,21 @@ public class PersistenceService {
     LOGGER.info("deleteCourse; Course with " + courseId + " was deleted");
   }
 
+  /**
+   * Return all existing participant
+   *
+   * @return a list
+   */
+  public ArrayList<Participant> getParticipants() {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    List<Participant> participant = entityManager.createQuery("from Participant", Participant.class)
+        .getResultList();
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    LOGGER.info("getParticipants; call of all participants");
+    return (ArrayList<Participant>) participant;
+  }
 
 
   @Override

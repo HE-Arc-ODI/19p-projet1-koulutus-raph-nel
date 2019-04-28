@@ -1,6 +1,7 @@
 package ch.hearc.odi.koulutus.rest;
 
 import ch.hearc.odi.koulutus.business.Course;
+import ch.hearc.odi.koulutus.business.Participant;
 import ch.hearc.odi.koulutus.business.Program;
 import ch.hearc.odi.koulutus.exceptions.ProgramException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
@@ -92,4 +93,9 @@ public class ProgramResource {
       throws ProgramException {
     return persistenceService.updateCourse(programId, courseId, course);
   }
+ /* @GET
+  @Path("{programId}/course/{courseId}")
+  public List<Participant> getCourseById(
+      @PathParam("programId") Long programId, @PathParam("courseId") Long courseId, Course course){
+  }*/
 }
