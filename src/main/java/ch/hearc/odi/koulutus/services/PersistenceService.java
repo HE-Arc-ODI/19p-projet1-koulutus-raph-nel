@@ -8,6 +8,7 @@ import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Participant;
 import ch.hearc.odi.koulutus.business.Pojo;
 import ch.hearc.odi.koulutus.business.Program;
+import ch.hearc.odi.koulutus.exceptions.ParticipantException;
 import ch.hearc.odi.koulutus.exceptions.ProgramException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,6 +16,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -270,6 +272,70 @@ public class PersistenceService {
     LOGGER.info("getParticipants; call of all participants");
     return (ArrayList<Participant>) participant;
   }
+
+  /**
+   * Return participant by ID
+   *
+   * @return a participant
+   */
+  public Participant getParticipantById(Long participantId) throws ParticipantException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Participant participant = entityManager.find(Participant.class, participantId);
+
+    if (participant == null) {
+      LOGGER.warn("getParticipantById; Participant with id " + participantId + " not found");
+      throw new ParticipantException("Participant with id " + participantId+ " not found");
+    }
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    LOGGER.info("getParticipants; Participant with id " + participantId + " was called");
+    return participant;
+  }
+
+  /**
+   * Delete a participant
+   *
+   * @return void
+   */
+  public void deleteParticipant(Long participantId) throws ParticipantException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Participant participant = entityManager.find(Participant.class, participantId);
+    entityManager.remove(participant);
+    if (participant == null) {
+      LOGGER.warn("deleteParticipant; Participant with id " + participantId + " not found");
+      throw new ParticipantException("Participant with id " + participantId+ " not found");
+    }
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    LOGGER.info("deleteParticipant; Participant with id " + participantId + " was deleted");
+  }
+
+  /**
+   * Update a participant
+   *
+   * @return participant
+   */
+  public Participant updateParticipant(Long participantId, String firstname, String lastname, Date birthdate) throws ParticipantException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Participant participant = entityManager.find(Participant.class, participantId);
+    if (participant == null) {
+      LOGGER.warn("putParticipant; Participant with id " + participantId + " not found");
+      throw new ParticipantException("Participant with id " + participantId+ " not found");
+    }
+    participant.setId(participantId);
+    participant.setFirstName(firstname);
+    participant.setLastName(lastname);
+    participant.setBirthdate(birthdate);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+
+    LOGGER.info("updateParticipant; Participant with id " + participantId + " was updated");
+    return participant;
+  }
+
 
 
   @Override
