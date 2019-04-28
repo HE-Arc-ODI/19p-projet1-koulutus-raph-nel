@@ -1,6 +1,7 @@
 package ch.hearc.odi.koulutus.rest;
 
 import ch.hearc.odi.koulutus.business.Course;
+import ch.hearc.odi.koulutus.exceptions.CourseException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
 import java.util.List;
 import javax.inject.Inject;
@@ -21,8 +22,8 @@ public class CourseResource {
 
   @GET
   @Path("{programId}")
-  public List<Course>getCourses(@PathParam("programId") Long programId){
-    return persistenceService.g
+  public List<Course>getCourses(@PathParam("programId") Long programId) throws CourseException {
+    return persistenceService.getCoursesByProgramId(programId);
   }
 
 
