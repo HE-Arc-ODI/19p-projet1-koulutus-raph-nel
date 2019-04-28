@@ -1,5 +1,6 @@
 package ch.hearc.odi.koulutus.business;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,20 +20,20 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "Program")
 @XmlRootElement(name = "Program")
-public class Program {
+public class Program implements Serializable {
 
   private Long id;
   private String name;
   private String richDescription;
   private String field;
-  private BigDecimal price;
+  private int price;
   private List<Course> courses;
 
   public Program() {
     courses = new ArrayList<>();
   }
 
-  public Program(String name, String richDescription, String field, BigDecimal price) {
+  public Program(String name, String richDescription, String field, int price) {
     this();
     this.name = name;
     this.richDescription = richDescription;
@@ -40,7 +41,7 @@ public class Program {
     this.price = price;
   }
 
-  public Program(Long id, String name, String richDescription, String field, BigDecimal price) {
+  public Program(Long id, String name, String richDescription, String field, int price) {
     this();
     this.id = id;
     this.name = name;
@@ -84,11 +85,11 @@ public class Program {
     this.field = field;
   }
 
-  public BigDecimal getPrice() {
+  public int getPrice() {
     return price;
   }
 
-  public void setPrice(BigDecimal price) {
+  public void setPrice(int price) {
     this.price = price;
   }
 

@@ -9,9 +9,7 @@ import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Participant;
 import ch.hearc.odi.koulutus.business.Pojo;
 import ch.hearc.odi.koulutus.business.Program;
-import ch.hearc.odi.koulutus.exceptions.CourseException;
 import ch.hearc.odi.koulutus.exceptions.ProgramException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -70,11 +68,10 @@ public class PersistenceService {
    *
    * @return the Program object created
    */
-  public Program createAndPersistProgram(String name, String richDescription, String field,
-      BigDecimal price) {
+  public Program createAndPersistProgram(Program newProgram) {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
-    Program program = new Program(name, richDescription, field, price);
+    Program program = new Program(newProgram.getName(),newProgram.getRichDescription(),newProgram.getField(),newProgram.getPrice());
     entityManager.persist(program);
     entityManager.getTransaction().commit();
     entityManager.close();
@@ -124,7 +121,7 @@ public class PersistenceService {
    * @return the program updated
    */
   public Program updateProgram(Long programId, String name, String richDescription, String field,
-      BigDecimal price) {
+     int price) {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = entityManager.find(Program.class, programId);

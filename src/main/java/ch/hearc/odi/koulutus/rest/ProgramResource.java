@@ -1,5 +1,6 @@
 package ch.hearc.odi.koulutus.rest;
 
+import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Program;
 import ch.hearc.odi.koulutus.exceptions.ProgramException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
@@ -37,8 +38,7 @@ public class ProgramResource {
   @POST
   public Program postProgram(Program program) {
     return persistenceService
-        .createAndPersistProgram(program.getName(), program.getRichDescription(),
-            program.getField(), program.getPrice());
+        .createAndPersistProgram(program);
   }
 
   @DELETE
@@ -54,4 +54,25 @@ public class ProgramResource {
         .updateProgram(programId, program.getName(), program.getRichDescription(),
             program.getField(), program.getPrice());
   }
+
+  @GET
+  @Path("{programId}/course")
+  public List<Course> getCourses(@PathParam("programId") Long programId)
+      throws ProgramException {
+    return persistenceService.getCoursesByProgramId(programId);
+  }
+
+ /* @GET
+  @Path("{programId}/course/{courseId}")
+  public Course getCourseById(@PathParam("programId") Long programId, @PathParam("courseId") Long courseId ){
+    return persistenceService.
+  }
+*/
+  @POST
+  @Path("{programId}")
+  public void postCourse(@PathParam("programId") Long programId, Course newCourse)
+      throws ProgramException {
+    persistenceService.addCourseToProgram(programId, newCourse);
+  }
+
 }
