@@ -104,17 +104,25 @@ public class Program implements Serializable {
     this.courses = courses;
   }
 
-  public void addCourse(Course newCourse){
+  public void addCourse(Course newCourse) {
     this.courses.add(newCourse);
   }
 
-  public Course getCourseById(Long courseId){
-    Course findCourse = null;
-    for (int i = 0; i < courses.size() ; i++) {
-      if (courses.get(i).getId().equals(courseId)){
-        findCourse = courses.get(i);
+  public Course getCourseById(Long courseId) {
+    return courses.get(findIndex(courseId));
+  }
+
+  private int findIndex(Long courseId) {
+    int index = 0;
+    for (int i = 0; i < courses.size(); i++) {
+      if (courses.get(i).getId().equals(courseId)) {
+        index = i;
       }
     }
-    return findCourse;
+    return index;
+  }
+
+  public void deleteCourseById(Long courseId) {
+    courses.remove(findIndex(courseId));
   }
 }

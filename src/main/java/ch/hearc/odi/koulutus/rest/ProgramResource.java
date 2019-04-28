@@ -21,8 +21,7 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 public class ProgramResource {
 
-  @Inject
-  private PersistenceService persistenceService;
+  @Inject private PersistenceService persistenceService;
 
   @GET
   public List<Program> getPrograms() {
@@ -37,8 +36,7 @@ public class ProgramResource {
 
   @POST
   public Program postProgram(Program program) {
-    return persistenceService
-        .createAndPersistProgram(program);
+    return persistenceService.createAndPersistProgram(program);
   }
 
   @DELETE
@@ -50,24 +48,28 @@ public class ProgramResource {
   @PUT
   @Path("{programId}")
   public Program updateProgram(@PathParam("programId") Long programId, Program program) {
-    return persistenceService
-        .updateProgram(programId, program.getName(), program.getRichDescription(),
-            program.getField(), program.getPrice());
+    return persistenceService.updateProgram(
+        programId,
+        program.getName(),
+        program.getRichDescription(),
+        program.getField(),
+        program.getPrice());
   }
 
   @GET
   @Path("{programId}/course")
-  public List<Course> getCourses(@PathParam("programId") Long programId)
-      throws ProgramException {
+  public List<Course> getCourses(@PathParam("programId") Long programId) throws ProgramException {
     return persistenceService.getCoursesByProgramId(programId);
   }
 
- /* @GET
+  @GET
   @Path("{programId}/course/{courseId}")
-  public Course getCourseById(@PathParam("programId") Long programId, @PathParam("courseId") Long courseId ){
-    return persistenceService.
+  public Course getCourseById(
+      @PathParam("programId") Long programId, @PathParam("courseId") Long courseId)
+      throws ProgramException {
+    return persistenceService.getCourseByIdProgramId(programId, courseId);
   }
-*/
+
   @POST
   @Path("{programId}")
   public void postCourse(@PathParam("programId") Long programId, Course newCourse)
@@ -75,4 +77,10 @@ public class ProgramResource {
     persistenceService.addCourseToProgram(programId, newCourse);
   }
 
+  @DELETE
+  @Path("{programId}/course/{courseId}")
+  public void deleteCourse(@PathParam("programId") Long programId,
+      @PathParam("courseId") Long courseId{
+    persistenceService.d
+  }
 }
