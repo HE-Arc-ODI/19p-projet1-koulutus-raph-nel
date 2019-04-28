@@ -271,6 +271,22 @@ public class PersistenceService {
     return (ArrayList<Participant>) participant;
   }
 
+  /**
+   * Return participant by ID
+   *
+   * @return a participant
+   */
+  public Participant getParticipantById(Long participantId) throws ParticipantException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Participant participant = entityManager.find(Participant.class, participantId);
+
+    if (participant == null) {
+      LOGGER.warn("getParticipantById; Participant with id " + participantId + " not found");
+      throw new ProgramException("Participant with id " + participantId+ " not found");
+    }
+  }
+
 
   @Override
   public void finalize() throws Throwable {
