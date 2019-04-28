@@ -79,13 +79,17 @@ public class ProgramResource {
 
   @DELETE
   @Path("{programId}/course/{courseId}")
-  public void deleteCourse(@PathParam("programId") Long programId,
-      @PathParam("courseId") Long courseId) throws ProgramException {
-    persistenceService.getCourseByIdProgramId(programId,courseId);
+  public void deleteCourse(
+      @PathParam("programId") Long programId, @PathParam("courseId") Long courseId)
+      throws ProgramException {
+    persistenceService.getCourseByIdProgramId(programId, courseId);
   }
 
   @PUT
   @Path("{programId}/course/{courseId}")
-  public Program updateCourse(@PathParam("programId") Long programId, Program program) {
-    return persistenceService.updateProgram(
+  public Course updateCourse(
+      @PathParam("programId") Long programId, @PathParam("courseId") Long courseId, Course course)
+      throws ProgramException {
+    return persistenceService.updateCourse(programId, courseId, course);
+  }
 }
