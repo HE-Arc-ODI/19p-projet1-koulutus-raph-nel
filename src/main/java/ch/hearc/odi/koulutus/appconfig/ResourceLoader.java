@@ -8,7 +8,6 @@ import ch.hearc.odi.koulutus.injection.ServiceBinder;
 import ch.hearc.odi.koulutus.injection.ServiceFeature;
 import ch.hearc.odi.koulutus.rest.ParticipantResource;
 import ch.hearc.odi.koulutus.rest.ProgramResource;
-import ch.hearc.odi.koulutus.rest.SessionResource;
 import org.glassfish.jersey.server.ResourceConfig;
 
 /**
@@ -21,7 +20,6 @@ public class ResourceLoader extends ResourceConfig {
     register(ServiceFeature.class);
     register(ParticipantResource.class);
     register(ProgramResource.class);
-    register(SessionResource.class);
     registerInstances(new ServiceBinder());
   }
 

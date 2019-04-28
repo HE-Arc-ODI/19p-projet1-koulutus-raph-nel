@@ -108,4 +108,13 @@ public class Program implements Serializable {
     this.courses.add(newCourse);
   }
 
+  public Course getCourseById(Long courseId){
+    Course findCourse = null;
+    for (int i = 0; i < courses.size() ; i++) {
+      if (courses.get(i).getId().equals(courseId)){
+        findCourse = courses.get(i);
+      }
+    }
+    return findCourse;
+  }
 }

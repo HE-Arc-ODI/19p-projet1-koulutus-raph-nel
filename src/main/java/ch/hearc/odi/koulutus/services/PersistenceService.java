@@ -71,7 +71,8 @@ public class PersistenceService {
   public Program createAndPersistProgram(Program newProgram) {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
-    Program program = new Program(newProgram.getName(),newProgram.getRichDescription(),newProgram.getField(),newProgram.getPrice());
+    Program program = new Program(newProgram.getName(), newProgram.getRichDescription(),
+        newProgram.getField(), newProgram.getPrice());
     entityManager.persist(program);
     entityManager.getTransaction().commit();
     entityManager.close();
@@ -121,7 +122,7 @@ public class PersistenceService {
    * @return the program updated
    */
   public Program updateProgram(Long programId, String name, String richDescription, String field,
-     int price) {
+      int price) {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = entityManager.find(Program.class, programId);
@@ -152,39 +153,58 @@ public class PersistenceService {
     return program.getCourses();
   }
 
-  public void addCourseToProgram(Long programId,Course newCourse) throws ProgramException {
+  public void addCourseToProgram(Long programId, Course newCourse) throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = entityManager.find(Program.class, programId);
     if (program == null) {
       LOGGER.warn("addCourseToProgram; Program with id " + programId + " not found");
       throw new ProgramException("Program with id " + programId + " not found");
-    }else{
+    } else {
       program.addCourse(newCourse);
       entityManager.getTransaction().commit();
       entityManager.close();
-      LOGGER.info("addCourseToProgram; Program with " + programId + "received a new course with id "+newCourse.getId()+" ");
+      LOGGER.info("addCourseToProgram; Program with " + programId + "received a new course with id "
+          + newCourse.getId() + " ");
     }
   }
 
-  @Override
-  public void finalize() throws Throwable {
-    entityManagerFactory.close();
-    super.finalize();
-  }
-
-  public Pojo createAndPersistAPojo(String myProperty) {
+  public Course getCourseByIdProgramId(Long programId, Long courseId) throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
-    Pojo pojo = new Pojo();
-    pojo.setSomeProperty(myProperty);
-    entityManager.persist(pojo);
-    entityManager.getTransaction().commit();
-    entityManager.close();
-    return pojo;
-  }
+    Program program = entityManager.find(Program.class, programId);
+    Course course = program.getCourseById(programId);
+    if (program == null) {
+      LOGGER.warn("getCourseByIdProgramId; Program with id " + programId + " not found");
+      throw new ProgramException("Program with id " + programId + " not found");
+       }else if (course == null) {
+        LOGGER.warn("getCourseByIdProgramId; Course with id " + courseId + " not found");
+        throw new ProgramException("Course with id " + courseId + " not found");
+      }
+      entityManager.getTransaction().commit();
+      entityManager.close();
+      LOGGER.info("getCourseByIdProgramId; Course with " + courseId + " was found");
+      return course;
+    }
 
-}
+    @Override
+    public void finalize () throws Throwable {
+      entityManagerFactory.close();
+      super.finalize();
+    }
+
+    public Pojo createAndPersistAPojo (String myProperty){
+      EntityManager entityManager = entityManagerFactory.createEntityManager();
+      entityManager.getTransaction().begin();
+      Pojo pojo = new Pojo();
+      pojo.setSomeProperty(myProperty);
+      entityManager.persist(pojo);
+      entityManager.getTransaction().commit();
+      entityManager.close();
+      return pojo;
+    }
+
+  }
 
 
 
