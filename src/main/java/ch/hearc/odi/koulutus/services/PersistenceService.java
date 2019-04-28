@@ -292,6 +292,25 @@ public class PersistenceService {
     return participant;
   }
 
+  /**
+   * Delete a participant
+   *
+   * @return void
+   */
+  public void deleteParticipant(Long participantId) throws ParticipantException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Participant participant = entityManager.find(Participant.class, participantId);
+    entityManager.remove(participant);
+    if (participant == null) {
+      LOGGER.warn("deleteParticipant; Participant with id " + participantId + " not found");
+      throw new ParticipantException("Participant with id " + participantId+ " not found");
+    }
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    LOGGER.info("deleteParticipant; Participant with id " + participantId + " was deleted");
+  }
+
 
   @Override
   public void finalize() throws Throwable {
