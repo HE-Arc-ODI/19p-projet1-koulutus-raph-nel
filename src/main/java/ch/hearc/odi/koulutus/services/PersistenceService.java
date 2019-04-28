@@ -5,9 +5,12 @@
 package ch.hearc.odi.koulutus.services;
 
 
+import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Participant;
 import ch.hearc.odi.koulutus.business.Pojo;
 import ch.hearc.odi.koulutus.business.Program;
+import ch.hearc.odi.koulutus.exceptions.CourseException;
+import ch.hearc.odi.koulutus.exceptions.ProgramException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,11 +18,16 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+
 
 public class PersistenceService {
 
   private EntityManagerFactory entityManagerFactory;
 
+  private static final Logger LOGGER = LogManager.getLogger(PersistenceService.class);
 
   public PersistenceService() {
     //  an EntityManagerFactory is set up once for an application
@@ -37,10 +45,9 @@ public class PersistenceService {
     entityManager.getTransaction().begin();
     List<Program> programs = entityManager.createQuery("from Program", Program.class)
         .getResultList();
-
     entityManager.getTransaction().commit();
     entityManager.close();
-
+    LOGGER.info("getProgram; call of all programs");
     return (ArrayList<Program>) programs;
   }
 
@@ -96,11 +103,18 @@ public class PersistenceService {
    *
    * @return void
    */
-  public void deleteProgram(Long programId) {
+  public void deleteProgram(Long programId) throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = entityManager.find(Program.class, programId);
     entityManager.remove(program);
+    if (program == null){
+      LOGGER.warn("deleteProgram; Program with id "+programId+" not found");
+      throw new ProgramException("Program with id "+programId+" not found");
+    }
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    LOGGER.info("deleteProgram; Program with id "+programId+" was deleted");
   }
 
   /**
@@ -121,6 +135,26 @@ public class PersistenceService {
     program.setPrice(price);
     entityManager.getTransaction().commit();
     return program;
+  }
+
+  /**
+   * Return course by ID
+   *
+   * @return a course
+   */
+  private Course getCourseById(Long courseId) throws CourseException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Course course = entityManager.find(Course.class, courseId);
+
+    if (course == null) {
+      LOGGER.warn("getCourseById; Course with id "+courseId+" not found");
+      throw new CourseException("Course with id "+courseId+" not found");
+    }
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    LOGGER.info("getCourseById; Course with id "+courseId+" was found");
+    return course;
   }
 
   @Override

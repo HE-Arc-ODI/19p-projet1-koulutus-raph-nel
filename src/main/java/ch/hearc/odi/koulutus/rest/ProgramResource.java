@@ -1,6 +1,7 @@
 package ch.hearc.odi.koulutus.rest;
 
 import ch.hearc.odi.koulutus.business.Program;
+import ch.hearc.odi.koulutus.exceptions.ProgramException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
 import java.util.List;
 import javax.inject.Inject;
@@ -42,7 +43,7 @@ public class ProgramResource {
 
   @DELETE
   @Path("{programId}")
-  public void deletProgram(@PathParam("programId") long programId) {
+  public void deletProgram(@PathParam("programId") long programId) throws ProgramException {
     persistenceService.deleteProgram(programId);
   }
 

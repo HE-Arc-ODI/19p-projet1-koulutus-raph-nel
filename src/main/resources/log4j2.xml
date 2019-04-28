@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="INFO">
   <Appenders>
-    <File name="warn" fileName="logs/resources.log">
-      <LevelRangeFilter minLevel="WARN" maxLevel="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+    <File name="info" fileName="log/info.log">
+      <LevelRangeFilter minLevel="INFO" maxLevel="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
       <PatternLayout pattern="%d{HH:mm:ss} [%t] %-5level %c - %msg%n"/>
     </File>
-    <File name="fatal" fileName="logs/exceptions.log">
+    <File name="fatal" fileName="log/fatal.log">
       <LevelRangeFilter minLevel="FATAL" maxLevel="FATAL" onMatch="ACCEPT" onMismatch="DENY"/>
       <PatternLayout pattern="%d{HH:mm:ss} [%t] %-5level %c - %msg%n"/>
     </File>
   </Appenders>
   <Loggers>
     <Root level="trace">
-      <AppenderRef ref="warn"/>
+      <AppenderRef ref="info"/>
       <AppenderRef ref="fatal"/>
     </Root>
   </Loggers>
