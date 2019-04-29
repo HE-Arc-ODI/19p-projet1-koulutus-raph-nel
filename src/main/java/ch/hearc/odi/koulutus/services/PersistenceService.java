@@ -23,7 +23,7 @@ public class PersistenceService {
 
   private EntityManagerFactory entityManagerFactory;
 
-  private static final Logger LOGGER = LogManager.getLogger(PersistenceService.class);
+  private static Logger LOGGER = LogManager.getLogger(PersistenceService.class);
 
   public PersistenceService() {
     //  an EntityManagerFactory is set up once for an application
@@ -41,9 +41,10 @@ public class PersistenceService {
     entityManager.getTransaction().begin();
     List<Program> programs =
         entityManager.createQuery("from Program", Program.class).getResultList();
+    LOGGER.info("getProgram; call of all programs");
     entityManager.getTransaction().commit();
     entityManager.close();
-    LOGGER.info("getProgram; call of all programs");
+
     return (ArrayList<Program>) programs;
   }
 
