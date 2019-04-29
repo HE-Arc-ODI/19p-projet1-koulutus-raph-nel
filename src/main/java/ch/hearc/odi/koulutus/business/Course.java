@@ -144,4 +144,8 @@ public class Course {
     return participant;
   }
 
+  public void setParticipant(Participant participant) {
+    this.participant = participant;
+  }
+
 }
