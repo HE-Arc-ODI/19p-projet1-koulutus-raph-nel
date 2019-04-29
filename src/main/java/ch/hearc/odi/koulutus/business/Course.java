@@ -1,19 +1,19 @@
 package ch.hearc.odi.koulutus.business;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderColumn;
-import javax.persistence.Table;
-import org.hibernate.annotations.GenericGenerator;
+    import com.fasterxml.jackson.annotation.JsonBackReference;
+    import com.fasterxml.jackson.annotation.JsonValue;
+    import java.util.ArrayList;
+    import java.util.List;
+    import javax.persistence.Entity;
+    import javax.persistence.FetchType;
+    import javax.persistence.GeneratedValue;
+    import javax.persistence.Id;
+    import javax.persistence.JoinColumn;
+    import javax.persistence.ManyToOne;
+    import javax.persistence.OneToMany;
+    import javax.persistence.OrderColumn;
+    import javax.persistence.Table;
+    import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "Course")
@@ -62,6 +62,8 @@ public class Course {
   private List<Session> sessions;
   private Participant participant;
   private Course course;
+  private Program program;
+
   public Course() {
     sessions = new ArrayList<>();
   }
@@ -148,12 +150,16 @@ public class Course {
     this.participant = participant;
   }
 
-  public void addSession(Session s){
+  public void addSession(Session s) {
     sessions.add(s);
   }
 
+  public void setProgram(Program program) {
+    this.program = program;
+  }
+
   @ManyToOne
-  @JsonBackReference(value="user-course")
+  @JsonBackReference(value = "user-course")
   public Course getCourse() {
     return course;
   }
@@ -161,5 +167,4 @@ public class Course {
   public void setCourse(Course course) {
     this.course = course;
   }
-
 }

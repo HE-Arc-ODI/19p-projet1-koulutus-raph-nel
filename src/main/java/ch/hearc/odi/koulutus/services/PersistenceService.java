@@ -183,6 +183,9 @@ public class PersistenceService {
   }
 
   public void addCourseToProgram(Long programId, Course newCourse) throws ProgramException {
+    Program program = new Program();
+    program.setId(programId);
+    newCourse.setProgram(program);
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = entityManager.find(Program.class, programId);
@@ -190,15 +193,12 @@ public class PersistenceService {
       LOGGER.warn("addCourseToProgram; Program with id " + programId + " not found");
       throw new ProgramException("Program with id " + programId + " not found");
     } else {
-      program.addCourse(newCourse);
+      Course courseToAd = new Course(newCourse.getId(), newCourse.getQuarter(),newCourse.getYear(),newCourse.getMaxNumberOfParticipants(),newCourse.getStatus());
+      program.addCourse(courseToAd);
       entityManager.getTransaction().commit();
       entityManager.close();
       LOGGER.info(
-          "addCourseToProgram; Program with "
-              + programId
-              + "received a new course with id "
-              + newCourse.getId()
-              + " ");
+          "addCourseToProgram; Program with " + programId + "received a new course with id " + newCourse.getId() + " ");
     }
   }
 
