@@ -26,14 +26,14 @@ public class Program implements Serializable {
   private String name;
   private String richDescription;
   private String field;
-  private int price;
+  private BigDecimal price;
   private List<Course> courses;
 
   public Program() {
     courses = new ArrayList<>();
   }
 
-  public Program(String name, String richDescription, String field, int price) {
+  public Program(String name, String richDescription, String field, BigDecimal price) {
     this();
     this.name = name;
     this.richDescription = richDescription;
@@ -41,7 +41,7 @@ public class Program implements Serializable {
     this.price = price;
   }
 
-  public Program(Long id, String name, String richDescription, String field, int price) {
+  public Program(Long id, String name, String richDescription, String field, BigDecimal price) {
     this();
     this.id = id;
     this.name = name;
@@ -85,11 +85,11 @@ public class Program implements Serializable {
     this.field = field;
   }
 
-  public int getPrice() {
+  public BigDecimal getPrice() {
     return price;
   }
 
-  public void setPrice(int price) {
+  public void setPrice(BigDecimal price) {
     this.price = price;
   }
 

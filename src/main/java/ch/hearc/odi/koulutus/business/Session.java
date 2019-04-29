@@ -17,8 +17,7 @@ public class Session {
   private Double price;
   private String room;
 
-  public Session() {
-  }
+  public Session() {}
 
   public Session(Long id, Date startDateTime, Date endDateTime, Double price, String room) {
     this.id = id;
@@ -70,5 +69,4 @@ public class Session {
   public void setRoom(String room) {
     this.room = room;
   }
-  }
-
+}

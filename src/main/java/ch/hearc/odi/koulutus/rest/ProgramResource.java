@@ -93,7 +93,7 @@ public class ProgramResource {
       throws ProgramException {
     return persistenceService.updateCourse(programId, courseId, course);
   }
- /* @GET
+  /* @GET
   @Path("{programId}/course/{courseId}")
   public List<Participant> getCourseById(
       @PathParam("programId") Long programId, @PathParam("courseId") Long courseId, Course course){

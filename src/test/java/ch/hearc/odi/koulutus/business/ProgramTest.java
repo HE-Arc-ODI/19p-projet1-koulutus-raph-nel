@@ -10,12 +10,13 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class ProgramTest {
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
+  @Rule public ExpectedException thrown = ExpectedException.none();
   private Program program;
 
   @Before
-  public void init() {program = new Program();}
+  public void init() {
+    program = new Program();
+  }
 
   @Test
   public void testAddCourses() {
@@ -24,8 +25,8 @@ public class ProgramTest {
     Course input = new Course(testId);
     Long expected = testId;
     // Act / Operate
-     program.addCourse(input);
-     List<Course> actual = program.getCourses();
+    program.addCourse(input);
+    List<Course> actual = program.getCourses();
     // Assert / Check
     assertEquals(expected, actual.get(0).getId());
   }
@@ -59,5 +60,4 @@ public class ProgramTest {
     // Assert / Check
     assertEquals(expected, actual);
   }
-
 }

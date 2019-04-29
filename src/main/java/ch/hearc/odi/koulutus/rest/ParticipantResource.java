@@ -23,31 +23,36 @@ import javax.ws.rs.core.Response.Status;
 @Consumes(MediaType.APPLICATION_JSON)
 public class ParticipantResource {
 
-  @Inject
-  private PersistenceService persistenceService;
+  @Inject private PersistenceService persistenceService;
 
   @GET
-  public List<Participant> getParticipants(){
+  public List<Participant> getParticipants() {
     return persistenceService.getParticipants();
   }
 
   @POST
-  public Participant postParticipant(Participant participant){
-    return persistenceService.createAndPersistParticipant(participant.getId(),participant.getFirstName(),participant.getLastName(),participant.getBirthdate());
+  public Participant postParticipant(Participant participant) {
+    return persistenceService.createAndPersistParticipant(
+        participant.getId(),
+        participant.getFirstName(),
+        participant.getLastName(),
+        participant.getBirthdate());
   }
+
   @GET
   @Path("{participantId}")
   public Participant getParticipantById(@PathParam("participantId") Long participantId)
       throws ParticipantException {
     return persistenceService.getParticipantById(participantId);
   }
+
   @DELETE
   @Path("{participantId}")
-  public Response participantDelete(@PathParam("participantId") Long participantid){
-    try{
+  public Response participantDelete(@PathParam("participantId") Long participantid) {
+    try {
       persistenceService.deleteParticipant(participantid);
       return Response.status(Response.Status.OK).build();
-    }catch (Exception e){
+    } catch (Exception e) {
       e.printStackTrace();
       return Response.status(Status.NOT_FOUND).build();
     }
@@ -55,13 +60,9 @@ public class ParticipantResource {
 
   @PUT
   @Path("{participantId}")
-  public Participant participantPut(@PathParam("participantId") Long participantid, Participant participant){
-    try{
-      return persistenceService.updateParticipant(participantid, participant.getFirstName(), participant.getLastName(), participant.getBirthdate());
-    }catch (ParticipantException e){
-      throw new NotFoundException("the participant does not exist");
-    }
+  public Participant updateParticipant(
+      @PathParam("participantId") Long participantid, Participant participant)
+      throws ParticipantException {
+    return persistenceService.updateParticipant(participantid, participant);
   }
-
-
 }
