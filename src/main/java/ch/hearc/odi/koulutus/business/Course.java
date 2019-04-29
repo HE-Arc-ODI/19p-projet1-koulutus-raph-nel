@@ -158,4 +158,8 @@ public class Course {
     return course;
   }
 
+  public void setCourse(Course course) {
+    this.course = course;
+  }
+
 }
