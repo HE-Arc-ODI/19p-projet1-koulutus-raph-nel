@@ -1,5 +1,6 @@
 package ch.hearc.odi.koulutus.business;
 
+<<<<<<< HEAD
 import static org.junit.Assert.assertEquals;
 
 import ch.hearc.odi.koulutus.business.Course.StatusEnum;
@@ -60,4 +61,19 @@ public class ProgramTest {
     // Assert / Check
     assertEquals(expected, actual);
   }
+=======
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
+
+public class ProgramTest {
+  @Rule
+  public ExpectedException thrown = ExpectedException.none();
+  private Program program;
+
+  @Before
+  public void init() {program = new Program();}
+
+
+>>>>>>> dev_nel_2
 }

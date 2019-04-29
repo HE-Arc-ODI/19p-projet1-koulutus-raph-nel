@@ -1,6 +1,16 @@
+<<<<<<< HEAD
 package ch.hearc.odi.koulutus.business;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+=======
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
+
+package ch.hearc.odi.koulutus.business;
+
+>>>>>>> dev_nel_2
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
@@ -11,6 +21,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
+<<<<<<< HEAD
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -97,11 +108,17 @@ public class Course {
   }
 
   public void setQuarter(QuarterEnum quarter) {
+=======
+>>>>>>> dev_nel_2
     this.quarter = quarter;
   }
 
   public Integer getYear() {
+<<<<<<< HEAD
     return year;
+=======
+    return this.year;
+>>>>>>> dev_nel_2
   }
 
   public void setYear(Integer year) {
@@ -109,13 +126,18 @@ public class Course {
   }
 
   public Integer getMaxNumberOfParticipants() {
+<<<<<<< HEAD
     return maxNumberOfParticipants;
+=======
+    return this.maxNumberOfParticipants;
+>>>>>>> dev_nel_2
   }
 
   public void setMaxNumberOfParticipants(Integer maxNumberOfParticipants) {
     this.maxNumberOfParticipants = maxNumberOfParticipants;
   }
 
+<<<<<<< HEAD
   public StatusEnum getStatus() {
     return status;
   }
@@ -133,5 +155,8 @@ public class Course {
 
   public void setSessions(List<Session> sessions) {
     this.sessions = sessions;
+=======
+    private status() {
+>>>>>>> dev_nel_2
   }
 }

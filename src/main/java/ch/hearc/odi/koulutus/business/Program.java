@@ -1,6 +1,7 @@
 package ch.hearc.odi.koulutus.business;
 
 import java.io.Serializable;
+<<<<<<< HEAD
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,40 @@ public class Program implements Serializable {
   }
 
   public Program(String name, String richDescription, String field, BigDecimal price) {
+=======
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import org.hibernate.annotations.GenericGenerator;
+import ch.hearc.odi.koulutus.exception.ProgramException;
+
+@Entity
+@Table(
+    name = "Program"
+)
+@XmlRootElement(
+    name = "Program"
+)
+public class Program implements Serializable {
+  private Integer id;
+  private String name;
+  private String richDescription;
+  private String field;
+  private Integer price;
+  private List<Course> courses;
+
+  public Program() {
+    this.courses = new ArrayList();
+  }
+
+  public Program(String name, String richDescription, String field, Integer price) {
+>>>>>>> dev_nel_2
     this();
     this.name = name;
     this.richDescription = richDescription;
@@ -41,6 +76,7 @@ public class Program implements Serializable {
     this.price = price;
   }
 
+<<<<<<< HEAD
   public Program(Long id, String name, String richDescription, String field, BigDecimal price) {
     this();
     this.id = id;
@@ -58,11 +94,46 @@ public class Program implements Serializable {
   }
 
   public void setId(Long id) {
+=======
+  public Program(Integer id, String name, String richDescription, String field, Integer price) {
+    this(name, richDescription, field, price);
+    this.id = id;
+  }
+
+  public Program(Program p, Course c) {
+    this.id = p.getId();
+    this.name = p.getName();
+    this.richDescription = p.getRichDescription();
+    this.field = p.getField();
+    this.price = p.getPrice();
+    this.courses = new ArrayList();
+    this.courses.add(c);
+  }
+
+  @Id
+  @GeneratedValue(
+      generator = "increment"
+  )
+  @GenericGenerator(
+      name = "increment",
+      strategy = "increment"
+  )
+
+  public Integer getId() {
+    return this.id;
+  }
+
+  public void setId(Integer id) {
+>>>>>>> dev_nel_2
     this.id = id;
   }
 
   public String getName() {
+<<<<<<< HEAD
     return name;
+=======
+    return this.name;
+>>>>>>> dev_nel_2
   }
 
   public void setName(String name) {
@@ -70,7 +141,11 @@ public class Program implements Serializable {
   }
 
   public String getRichDescription() {
+<<<<<<< HEAD
     return richDescription;
+=======
+    return this.richDescription;
+>>>>>>> dev_nel_2
   }
 
   public void setRichDescription(String richDescription) {
@@ -78,13 +153,18 @@ public class Program implements Serializable {
   }
 
   public String getField() {
+<<<<<<< HEAD
     return field;
+=======
+    return this.field;
+>>>>>>> dev_nel_2
   }
 
   public void setField(String field) {
     this.field = field;
   }
 
+<<<<<<< HEAD
   public BigDecimal getPrice() {
     return price;
   }
@@ -98,12 +178,27 @@ public class Program implements Serializable {
   @OrderColumn(name = "order_courses")
   public List<Course> getCourses() {
     return courses;
+=======
+  public Integer getPrice() {
+    return this.price;
+  }
+
+  public void setPrice(Integer price) {
+    this.price = price;
+  }
+
+  @XmlElement
+  @Transient
+  public List<Course> getCourses() {
+    return this.courses;
+>>>>>>> dev_nel_2
   }
 
   public void setCourses(List<Course> courses) {
     this.courses = courses;
   }
 
+<<<<<<< HEAD
   public void addCourse(Course newCourse) {
     this.courses.add(newCourse);
   }
@@ -126,3 +221,33 @@ public class Program implements Serializable {
     courses.remove(findIndex(courseId));
   }
 }
+=======
+  public void addCourse(Course course) {
+    this.courses.add(course);
+  }
+
+  public void update(Program newProgram) {
+    this.setCourses(newProgram.getCourses());
+    this.setField(newProgram.getField());
+    this.setName(newProgram.getName());
+    this.setPrice(newProgram.getPrice());
+    this.setRichDescription(newProgram.getRichDescription());
+  }
+
+  public Integer getIndex(Integer id) throws ProgramException {
+    for(int i = 0; i < this.courses.size(); ++i) {
+      /* Course c = (Course)this.courses.get(i);
+       if (c.getId() == id) {
+        return i;
+      } */
+    }
+
+    throw new ProgramException("Index not found");
+  }
+
+  public void removeCourse(Integer id) throws ProgramException {
+    this.courses.remove(this.getIndex(id));
+  }
+}
+
+>>>>>>> dev_nel_2

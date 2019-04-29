@@ -15,4 +15,10 @@ public class ParticipantTest {
   public void init() {participant = new Participant();}
 
 
+<<<<<<< HEAD
 }
+=======
+  }
+
+
+>>>>>>> dev_nel_2

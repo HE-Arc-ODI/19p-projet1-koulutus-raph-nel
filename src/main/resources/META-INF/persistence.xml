@@ -18,7 +18,15 @@
       Persistence unit for the koulutus rest api
     </description>
 
+<<<<<<< HEAD
     <class>ch.hearc.odi.koulutus.business.Program</class>
+=======
+    <class>ch.hearc.odi.koulutus.business.Pojo</class>
+    <class>ch.hearc.odi.koulutus.business.Course</class>
+    <class>ch.hearc.odi.koulutus.business.Participant</class>
+    <class>ch.hearc.odi.koulutus.business.Program</class>
+    <class>ch.hearc.odi.koulutus.business.Session</class>
+>>>>>>> dev_nel_2
 
     <properties>
       <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
