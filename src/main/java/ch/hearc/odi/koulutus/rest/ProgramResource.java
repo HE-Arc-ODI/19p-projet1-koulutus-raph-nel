@@ -94,13 +94,12 @@ public class ProgramResource {
     return persistenceService.updateCourse(programId, courseId, course);
   }
 
- /* @PUT
+  /* @PUT
   @Path("{programId}/course/{courseId}/session/{sessionId}")
   public updateSession(
       @PathParam("programId") Long programId, @PathParam("courseId"), Long courseId, @PathParam("sessionId"){
 
   }*/
-
 
   /* @GET
   @Path("{programId}/course/{courseId}")
