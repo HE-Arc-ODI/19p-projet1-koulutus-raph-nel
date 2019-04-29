@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -93,7 +94,7 @@ public class Program implements Serializable {
     this.price = price;
   }
 
-  @OneToMany(targetEntity = Course.class, fetch = FetchType.EAGER)
+  @OneToMany(targetEntity = Course.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @JoinColumn(name = "courses")
   @OrderColumn(name = "order_courses")
   public List<Course> getCourses() {
