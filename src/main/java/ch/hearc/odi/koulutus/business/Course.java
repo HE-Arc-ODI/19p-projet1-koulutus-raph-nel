@@ -148,4 +148,14 @@ public class Course {
     this.participant = participant;
   }
 
+  public void addSession(Session s){
+    sessions.add(s);
+  }
+
+  @ManyToOne
+  @JsonBackReference(value="user-course")
+  public Course getCourse() {
+    return course;
+  }
+
 }
