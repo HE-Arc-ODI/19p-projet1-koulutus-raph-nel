@@ -1,15 +1,8 @@
 package ch.hearc.odi.koulutus.services;
 
-import static org.junit.Assert.*;
-
-import ch.hearc.odi.koulutus.business.Pojo;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 
 public class PersistenceServiceTest {
 
@@ -22,15 +15,4 @@ public class PersistenceServiceTest {
     entityManagerFactory = Persistence.createEntityManagerFactory("ch.hearc.odi.koulutus.jpa");
   }
 
-  @Test
-  public void createAndPersistAPojo() {
-    String testString = "hello world!";
-    Pojo pojo = persistenceService.createAndPersistAPojo("hello world!");
-
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-    long expectedPojoID = pojo.getId();
-    Pojo actualPojo = entityManager.find(Pojo.class, expectedPojoID);
-
-    assertEquals(pojo, actualPojo);
-  }
 }

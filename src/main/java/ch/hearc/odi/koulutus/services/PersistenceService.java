@@ -6,7 +6,6 @@ package ch.hearc.odi.koulutus.services;
 
 import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Participant;
-import ch.hearc.odi.koulutus.business.Pojo;
 import ch.hearc.odi.koulutus.business.Program;
 import ch.hearc.odi.koulutus.exceptions.ParticipantException;
 import ch.hearc.odi.koulutus.exceptions.ProgramException;
@@ -17,7 +16,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -341,16 +339,5 @@ public class PersistenceService {
   public void finalize() throws Throwable {
     entityManagerFactory.close();
     super.finalize();
-  }
-
-  public Pojo createAndPersistAPojo(String myProperty) {
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-    entityManager.getTransaction().begin();
-    Pojo pojo = new Pojo();
-    pojo.setSomeProperty(myProperty);
-    entityManager.persist(pojo);
-    entityManager.getTransaction().commit();
-    entityManager.close();
-    return pojo;
   }
 }
