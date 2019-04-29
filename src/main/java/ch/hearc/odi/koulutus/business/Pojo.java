@@ -52,8 +52,7 @@ public class Pojo implements Serializable {
     this.someProperty = someProperty;
   }
 
-  public Pojo()
-  {}
+  public Pojo(){}
 
 
   @Override

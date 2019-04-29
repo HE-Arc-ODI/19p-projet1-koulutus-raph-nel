@@ -1,14 +1,13 @@
 package ch.hearc.odi.koulutus.restresources;
 
+import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Session;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
 
-import java.text.ParseException;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Path("session")
@@ -18,8 +17,9 @@ public class SessionResource {
   private PersistenceService persistenceService;
 
   @GET
+  @Produces(MediaType.APPLICATION_JSON)
   public Session getSession(){
-    return getSession(); //persistenceService.createAndPersistSession(getSession());
+    return getSession();
   }
 
   @POST
@@ -28,7 +28,6 @@ public class SessionResource {
       Integer courseId, @FormParam("startDateTime") Date startDateTime,  @FormParam("endDateTime")
       Date endDateTime, @FormParam("price") Double price, @FormParam("room") String room){
     try{
-      //Date birthdateConverted = new SimpleDateFormat("dd/MM/yyyy").parse(birthdate);
       return persistenceService.createAndPersistSession(programId, courseId, startDateTime, endDateTime, price, room);
     }catch (ProgramException ex){
       throw new WebApplicationException("Error with program");
