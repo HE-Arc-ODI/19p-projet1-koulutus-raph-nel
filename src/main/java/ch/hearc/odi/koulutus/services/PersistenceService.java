@@ -10,6 +10,7 @@ import ch.hearc.odi.koulutus.business.Pojo;
 import ch.hearc.odi.koulutus.business.Program;
 import ch.hearc.odi.koulutus.exceptions.ParticipantException;
 import ch.hearc.odi.koulutus.exceptions.ProgramException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -125,7 +126,7 @@ public class PersistenceService {
    * @return the program updated
    */
   public Program updateProgram(
-      Long programId, String name, String richDescription, String field, int price) {
+      Long programId, String name, String richDescription, String field, BigDecimal price) {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = entityManager.find(Program.class, programId);
@@ -144,8 +145,8 @@ public class PersistenceService {
    * @param courseId specifies which course to update
    * @return the program updated
    */
-  public Course updateCourse(
-      Long programId, Long courseId, Course updatedCourse) throws ProgramException {
+  public Course updateCourse(Long programId, Long courseId, Course updatedCourse)
+      throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = entityManager.find(Program.class, programId);
@@ -220,7 +221,7 @@ public class PersistenceService {
     return course;
   }
 
- /* public Course getParticipantByprogramIdCourseId(Long programId, Long courseId) throws ProgramException {
+  /* public Course getParticipantByprogramIdCourseId(Long programId, Long courseId) throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = entityManager.find(Program.class, programId);
@@ -265,8 +266,8 @@ public class PersistenceService {
   public ArrayList<Participant> getParticipants() {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
-    List<Participant> participant = entityManager.createQuery("from Participant", Participant.class)
-        .getResultList();
+    List<Participant> participant =
+        entityManager.createQuery("from Participant", Participant.class).getResultList();
     entityManager.getTransaction().commit();
     entityManager.close();
     LOGGER.info("getParticipants; call of all participants");
@@ -285,7 +286,7 @@ public class PersistenceService {
 
     if (participant == null) {
       LOGGER.warn("getParticipantById; Participant with id " + participantId + " not found");
-      throw new ParticipantException("Participant with id " + participantId+ " not found");
+      throw new ParticipantException("Participant with id " + participantId + " not found");
     }
     entityManager.getTransaction().commit();
     entityManager.close();
@@ -305,7 +306,7 @@ public class PersistenceService {
     entityManager.remove(participant);
     if (participant == null) {
       LOGGER.warn("deleteParticipant; Participant with id " + participantId + " not found");
-      throw new ParticipantException("Participant with id " + participantId+ " not found");
+      throw new ParticipantException("Participant with id " + participantId + " not found");
     }
     entityManager.getTransaction().commit();
     entityManager.close();
@@ -317,26 +318,24 @@ public class PersistenceService {
    *
    * @return participant
    */
-  public Participant updateParticipant(Long participantId, String firstname, String lastname, Date birthdate) throws ParticipantException {
+  public Participant updateParticipant(Long participantId, Participant newParticipant)
+      throws ParticipantException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Participant participant = entityManager.find(Participant.class, participantId);
     if (participant == null) {
       LOGGER.warn("putParticipant; Participant with id " + participantId + " not found");
-      throw new ParticipantException("Participant with id " + participantId+ " not found");
+      throw new ParticipantException("Participant with id " + participantId + " not found");
     }
     participant.setId(participantId);
-    participant.setFirstName(firstname);
-    participant.setLastName(lastname);
-    participant.setBirthdate(birthdate);
+    participant.setFirstName(newParticipant.getFirstName());
+    participant.setLastName(newParticipant.getLastName());
+    participant.setBirthdate(newParticipant.getBirthdate());
     entityManager.getTransaction().commit();
     entityManager.close();
-
     LOGGER.info("updateParticipant; Participant with id " + participantId + " was updated");
     return participant;
   }
-
-
 
   @Override
   public void finalize() throws Throwable {
