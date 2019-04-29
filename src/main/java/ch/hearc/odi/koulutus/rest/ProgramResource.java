@@ -72,7 +72,7 @@ public class ProgramResource {
   }
 
   @POST
-  @Path("{programId}")
+  @Path("{programId}/course")
   public void postCourse(@PathParam("programId") Long programId, Course newCourse)
       throws ProgramException {
     persistenceService.addCourseToProgram(programId, newCourse);
@@ -93,6 +93,15 @@ public class ProgramResource {
       throws ProgramException {
     return persistenceService.updateCourse(programId, courseId, course);
   }
+
+ /* @PUT
+  @Path("{programId}/course/{courseId}/session/{sessionId}")
+  public updateSession(
+      @PathParam("programId") Long programId, @PathParam("courseId"), Long courseId, @PathParam("sessionId"){
+
+  }*/
+
+
   /* @GET
   @Path("{programId}/course/{courseId}")
   public List<Participant> getCourseById(

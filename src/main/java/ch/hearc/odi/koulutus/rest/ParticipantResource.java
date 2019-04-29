@@ -61,8 +61,8 @@ public class ParticipantResource {
   @PUT
   @Path("{participantId}")
   public Participant updateParticipant(
-      @PathParam("participantId") Long participantid, Participant participant)
+      @PathParam("participantId") Long participantId, Participant participant)
       throws ParticipantException {
-    return persistenceService.updateParticipant(participantid, participant);
+    return persistenceService.updateParticipant(participantId, participant);
   }
 }
