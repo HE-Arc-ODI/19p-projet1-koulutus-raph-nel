@@ -229,7 +229,7 @@ public class PersistenceService {
     return course;
   }
 
-  /* public Course getParticipantByprogramIdCourseId(Long programId, Long courseId) throws ProgramException {
+  /* public Course getParticipantByprogramIdCourseId(Long programId, Long courseId) throws ProgramException {  // FIXME: pourquoi commentez-vous ces blocs? on ne peut pas savoir si c'est du code provisoire, obsolète, ou erroné.
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = entityManager.find(Program.class, programId);
